@@ -3,7 +3,7 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   'appZy0IcocUjMrryI'
 );
 
-const getRecords = () => {
+const getRecords = (cb) => {
   base('SC04 Applications')
     .select({
       view: 'Final 75',
@@ -14,9 +14,11 @@ const getRecords = () => {
         console.error(err);
         return;
       }
-      records.forEach(function (record) {
-        console.log('Retrieved', record);
+      const applications = {};
+      records.forEach((record, i) => {
+        applications[i] = record.fields;
       });
+      cb(applications);
     });
 };
 
