@@ -1,18 +1,11 @@
-// import { getRecords } from '../Airtable/index';
-const Airtable = require('airtable');
-new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-  'appZy0IcocUjMrryI'
-);
 import axios from 'axios';
+import base from '../Airtable/index';
 
 axios.defaults.headers[
   'Authorization'
 ] = `Bearer ${process.env.AIRTABLE_API_KEY}`;
 
-const fullUrl =
-  'https://api.airtable.com/v0/appZy0IcocUjMrryI/SC04%20Applications?view=Final+List&fields%5B%5D=Project+Name&fields%5B%5D=Contact+Name&fields%5B%5D=Video&fields%5B%5D=Call+to+Adventure';
-
-const baseUrl =
+axios.defaults.baseURL =
   'https://api.airtable.com/v0/appZy0IcocUjMrryI/SC04%20Applications';
 
 const SET_RECORDS = 'SET_RECORDS';
@@ -31,7 +24,7 @@ export const setCurrent = (index) => ({
 export const fetchRecords = () => {
   return async (dispatch) => {
     try {
-      const { data: records } = await axios.get(baseUrl, {
+      const { data: res } = await axios.get('/', {
         params: {
           view: 'Final List',
           fields: [
@@ -43,11 +36,11 @@ export const fetchRecords = () => {
         },
       });
 
-      const applicationsData = records.map((record) => {
+      const applicationsData = res.records.map((record) => {
         return record.fields;
       });
 
-      dispatch(setRecords([]));
+      dispatch(setRecords(applicationsData));
     } catch (error) {
       console.log(error);
     }

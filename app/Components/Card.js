@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
-// import { getRecords } from '../Airtable';
-import { fetchRecords, setRecords } from '../Redux/applications';
+import { fetchRecords } from '../Redux/applications';
 
 const Card = () => {
   const allApplications = useSelector((state) => state.applications.all);
   const currentIndex = useSelector((state) => state.applications.current);
   const dispatch = useDispatch();
-  // const [allApplications, setAllApps] = useState(null);
 
   useEffect(() => {
-    // getRecords(setRecords());
     dispatch(fetchRecords());
   }, []);
 
