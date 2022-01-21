@@ -3,8 +3,8 @@ const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   'appZy0IcocUjMrryI'
 );
 
-const getRecords = async (cb) => {
-  await base('SC04 Applications')
+const getRecords = async () => {
+  const records = await base('SC04 Applications')
     .select({
       view: 'Final List',
       fields: ['Project Name', 'Contact Name', 'Video', 'Call to Adventure'],
@@ -14,12 +14,15 @@ const getRecords = async (cb) => {
         console.error(err);
         return;
       }
-      const applications = [];
-      records.forEach((record) => {
-        applications.push(record.fields);
-      });
-      cb(applications);
+
+      // records.forEach((record) => {
+      //   records.push(record.fields);
+      // });
     });
+  const data = records.map((record) => {
+    return record.fields;
+  });
+  return data;
 };
 
 export { getRecords };
