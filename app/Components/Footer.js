@@ -1,19 +1,26 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrent } from '../Redux/applications';
 
-const Footer = ({ current, setCurrent }) => {
+const Footer = () => {
+  const current = useSelector((state) => state.applications.current);
+  const total = useSelector((state) => state.applications.all.length);
+  const dispatch = useDispatch();
   return (
     <div>
-      <p>{current} of 32 projects reviewed</p>
+      <p>
+        {current} of {total} projects reviewed
+      </p>
       <button
         onClick={() => {
-          setCurrent(current + 1);
+          dispatch(setCurrent(current + 1));
         }}
       >
         Thumbs Up
       </button>
       <button
         onClick={() => {
-          setCurrent(current + 1);
+          dispatch(setCurrent(current + 1));
         }}
       >
         Thumbs Down

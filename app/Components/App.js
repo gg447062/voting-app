@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Card from './Components/Card';
-import Footer from './Components/Footer';
+import Card from './Card';
+import Footer from './Footer';
 
 const App = () => {
   const [current, setCurrent] = useState(0);

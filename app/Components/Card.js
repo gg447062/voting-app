@@ -4,27 +4,30 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { getRecords } from '../Airtable';
 import { fetchRecords, setRecords } from '../Redux/applications';
 
-const Card = ({ current }) => {
-  const allApps = useSelector((state) => state.applications.all);
+const Card = () => {
+  const allApplications = useSelector((state) => state.applications.all);
+  const currentIndex = useSelector((state) => state.applications.current);
   const dispatch = useDispatch();
-  // const [allApps, setAllApps] = useState(null);
+  // const [allApplications, setAllApps] = useState(null);
 
   useEffect(() => {
-    // getRecords(setAllApps);
+    // getRecords(setRecords());
     dispatch(fetchRecords());
   }, []);
 
-  console.log(allApps);
   return (
     <div>
-      {allApps.length > 0 && (
+      {allApplications.length > 0 && (
         <div>
-          <h1>{allApps[0]['Project Name']}</h1>
-          <p>{allApps[0]['Contact Name']}</p>
-          <ReactPlayer url={allApps[0]['Video']} controls={true} />
+          <h1>{allApplications[currentIndex]['Project Name']}</h1>
+          <p>{allApplications[currentIndex]['Contact Name']}</p>
+          <ReactPlayer
+            url={allApplications[currentIndex]['Video']}
+            controls={true}
+          />
           <div>
             <h2>Call to Adventure</h2>
-            {allApps[0]['Call to Adventure']}
+            {allApplications[currentIndex]['Call to Adventure']}
           </div>
           <div>
             <h3>Reviewer Scores</h3>
