@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Card from './Card';
 import Footer from './Footer';
+import { useSelector } from 'react-redux';
+import Voting from './Voting';
 
 const App = () => {
-  const [current, setCurrent] = useState(0);
+  const complete = useSelector((state) => state.applications.complete);
   return (
     <div>
-      <Card current={current} />
-      <Footer current={current} setCurrent={setCurrent} />
+      {!complete ? (
+        <React.Fragment>
+          <Card />
+          <Footer />
+        </React.Fragment>
+      ) : (
+        <Voting />
+      )}
     </div>
   );
 };

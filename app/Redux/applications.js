@@ -8,17 +8,29 @@ axios.defaults.headers[
 axios.defaults.baseURL =
   'https://api.airtable.com/v0/appZy0IcocUjMrryI/SC04%20Applications';
 
-const SET_RECORDS = 'SET_RECORDS';
+const SET_APPLICATIONS = 'SET_APPLICATIONS';
+const APPROVE = 'APPROVE';
 const SET_CURRENT = 'SET_CURRENT';
+const SET_COMPLETE = 'SET_COMPLETE';
 
-export const setRecords = (records) => ({
-  type: SET_RECORDS,
+const setApplications = (records) => ({
+  type: SET_APPLICATIONS,
   records,
+});
+
+export const approve = (index) => ({
+  type: APPROVE,
+  index,
 });
 
 export const setCurrent = (index) => ({
   type: SET_CURRENT,
   index,
+});
+
+export const setComplete = (value) => ({
+  type: SET_COMPLETE,
+  value,
 });
 
 export const fetchRecords = () => {
@@ -40,21 +52,26 @@ export const fetchRecords = () => {
         return record.fields;
       });
 
-      dispatch(setRecords(applicationsData));
+      dispatch(setApplications(applicationsData));
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-const initState = { all: [], current: 0 };
+const initState = { all: [], approved: [], current: 0, complete: false };
 
 const applicationsReducer = (state = initState, action) => {
   switch (action.type) {
-    case SET_RECORDS:
+    case SET_APPLICATIONS:
       return { ...state, all: action.records };
+    case APPROVE:
+      const _all = [...state.all];
+      return { ...state, approved: [...state.approved, _all[action.index]] };
     case SET_CURRENT:
       return { ...state, current: action.index };
+    case SET_COMPLETE:
+      return { ...state, complete: action.value };
     default:
       return state;
   }
