@@ -7,7 +7,7 @@ import Voting from './Voting';
 const App = () => {
   const complete = useSelector((state) => state.applications.complete);
   return (
-    <div>
+    <div className="is-family-monospace">
       {!complete ? (
         <React.Fragment>
           <Card />

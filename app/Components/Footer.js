@@ -26,13 +26,17 @@ const Footer = () => {
   };
 
   return (
-    <div>
-      <p>
+    <div className="columns">
+      <p className="column">
         {current} of {total} projects reviewed
       </p>
-      <button onClick={onThumbsUp}>Thumbs Up</button>
-      <button onClick={onThumbsDown}>Thumbs Down</button>
-      <div>
+      <button className="button is-success column" onClick={onThumbsUp}>
+        Thumbs Up
+      </button>
+      <button className="button is-danger column" onClick={onThumbsDown}>
+        Thumbs Down
+      </button>
+      <div className="column">
         <p>Voting power: XXX $CLUB</p>
         <p>You'll be able to allocate votes after your initial review</p>
       </div>
