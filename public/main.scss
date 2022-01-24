@@ -1,2 +1,59 @@
 @charset "utf-8";
-@import '../node_modules/bulma/bulma.sass';
+
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center {
+  justify-content: center;
+}
+
+.space-b {
+  justify-content: space-between;
+}
+
+.has-border {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.card {
+  width: 95%;
+}
+
+.card-right {
+  padding: 10px;
+}
+
+.c2a {
+  // width: 80%;
+  // height: auto;
+  overflow-y: scroll;
+  padding: 5px;
+}
+
+.footer {
+  width: 95vw;
+}
+
+@import '../node_modules/bulma/sass/utilities/_all.sass';
+@import '../node_modules/bulma/sass/helpers/typography.sass';
+@import '../node_modules/bulma/sass/elements/progress.sass';
+@import '../node_modules/bulma/sass/grid/tiles.sass';

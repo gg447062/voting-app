@@ -13,27 +13,28 @@ const Card = () => {
   }, []);
 
   return (
-    <div style={{ border: '1px solid black' }}>
+    <div className="card-wrapper tile is-parent is-11 has-border flex-row center">
       {allApplications.length > 0 && (
-        <div>
-          <div>
-            <h1 className="is-size-1">
-              {allApplications[currentIndex]['Project Name']}
-            </h1>
+        <div className="card tile is-parent is-vertical is-11">
+          <div className="tile flex-column card-header">
+            <h1>{allApplications[currentIndex]['Project Name']}</h1>
             <p>{allApplications[currentIndex]['Contact Name']}</p>
           </div>
-          <div className="columns">
-            <div className="column is-two-thirds">
+          <div className="tile card-main">
+            <div className="tile is-vertical is-8">
               <ReactPlayer
                 url={allApplications[currentIndex]['Video']}
                 controls={true}
+                height="80%"
+                width="80%"
+                className="tile is-child"
               />
-              <div>
-                <h2 className="is-size-3">Call to Adventure</h2>
+              <div className="tile is-child has-border c2a">
+                <h2>Call to Adventure</h2>
                 <div>{allApplications[currentIndex]['Call to Adventure']}</div>
               </div>
             </div>
-            <div className="column is-one-third">
+            <div className="tile is-vertical is-4 has-border card-right">
               <h3>Reviewer Scores</h3>
               <p>85 - Josh</p>
               <p>
