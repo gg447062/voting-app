@@ -26,22 +26,30 @@ const Footer = () => {
   };
 
   return (
-    <div className="footer flex-row space-b">
-      <div className="flex-column">
+    <div className="footer tile is-parent">
+      <div className="tile is-child is-3">
         <p>
           {current} of {total} projects reviewed
         </p>
-        <progress className="progress" value={current} max={total}></progress>
+        <progress
+          className="progress is-small"
+          value={current}
+          max={total}
+        ></progress>
       </div>
-      <div>
-        <button className="" onClick={onThumbsUp}>
-          Thumbs Up
-        </button>
-        <button className="" onClick={onThumbsDown}>
-          Thumbs Down
-        </button>
+      <div className="tile is-6 ">
+        <div className="tile is-child is-4"></div>
+        <div className="buttons">
+          <button className="is-family-monospace" onClick={onThumbsUp}>
+            Thumbs Up
+          </button>
+          <button className="is-family-monospace" onClick={onThumbsDown}>
+            Thumbs Down
+          </button>
+        </div>
+        <div className="tile is-child is-4"></div>
       </div>
-      <div className="flex-column center">
+      <div className="tile is-child is-3">
         <p>Voting power: XXX $CLUB</p>
         <p>You'll be able to allocate votes after your initial review</p>
       </div>

@@ -6,25 +6,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
-.flex-row {
-  display: flex;
-  align-items: center;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.center {
-  justify-content: center;
-}
-
-.space-b {
-  justify-content: space-between;
+button {
+  padding: 10px;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .has-border {
@@ -32,12 +21,8 @@ body {
   border-radius: 5px;
 }
 
-.card {
-  width: 95%;
-}
-
-.card-right {
-  padding: 10px;
+.has-shadow {
+  box-shadow: 0 2px black;
 }
 
 .c2a {
@@ -45,8 +30,21 @@ body {
   padding: 5px;
 }
 
-.footer {
+.main {
   width: 95vw;
+  height: 95vh;
+}
+
+.buttons {
+  max-width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blue {
+  background-color: #0088ff;
 }
 
 /* Bulma Utilities */
