@@ -6,7 +6,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 button {
@@ -26,8 +25,13 @@ button {
 }
 
 .c2a {
-  overflow-y: scroll;
-  padding: 5px;
+  width: 90%;
+  padding-left: 5%;
+}
+
+.insider-info {
+  padding: 2.5%;
+  box-sizing: border-box;
 }
 
 .main {
@@ -43,8 +47,23 @@ button {
   justify-content: center;
 }
 
+.video-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.footer-message {
+  text-align: right;
+}
+
 .blue {
   background-color: #0088ff;
+}
+
+.green {
+  background-color: #3ee42f;
 }
 
 /* Bulma Utilities */

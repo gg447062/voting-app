@@ -49,8 +49,8 @@ const Footer = () => {
         </div>
         <div className="tile is-child is-4"></div>
       </div>
-      <div className="tile is-child is-3">
-        <p>Voting power: XXX $CLUB</p>
+      <div className="tile is-child is-3 footer-message">
+        <h4>Voting power: XXX $CLUB</h4>
         <p>You'll be able to allocate votes after your initial review</p>
       </div>
     </div>
