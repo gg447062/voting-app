@@ -10,6 +10,7 @@ const Card2 = () => {
 
   useEffect(() => {
     dispatch(fetchRecords());
+    console.log('fetching');
   }, []);
 
   return (
@@ -28,19 +29,19 @@ const Card2 = () => {
           {/* main body*/}
           <div className="card tile is-parent has-border has-shadow">
             {/* left */}
-            <div className="tile is-parent is-vertical is-8">
+            <div className="tile is-parent is-vertical is-7">
               <div className="tile video-wrapper">
                 <ReactPlayer
                   className="video"
                   url={allApplications[currentIndex]['Video']}
                   controls
-                  // height="60%"
-                  // width="60%"
+                  height="100%"
+                  width="100%"
                 ></ReactPlayer>
               </div>
-              <div className="tile is-child has-border c2a-wrapper">
-                <h3 className="c2a">Call to Adventure</h3>
-                <p className="c2a">
+              <div className="tile is-parent is-vertical has-border c2a-wrapper">
+                <h3 className="c2a-header">Call to Adventure</h3>
+                <p className="c2a-content">
                   {allApplications[currentIndex]['Call to Adventure']}
                 </p>
               </div>

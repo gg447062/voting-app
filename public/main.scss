@@ -27,9 +27,22 @@ button {
   box-shadow: 0 2px black;
 }
 
-.c2a {
-  width: 90%;
-  padding-left: 5%;
+.video-wrapper {
+  // max-width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.c2a-header {
+  margin: 0;
+}
+
+.c2a-content {
+  max-height: 110px;
+  margin-top: 5px;
+  overflow-y: scroll;
 }
 
 .insider-info {
@@ -50,20 +63,13 @@ button {
   justify-content: center;
 }
 
-.c2a-wrapper {
-  // min-height: 300px;
-  // overflow-y: scroll;
-}
-
-.video-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.75rem;
-}
-
 .footer-message {
   text-align: right;
+}
+
+.vote-card {
+  max-height: 95vh;
+  overflow-y: scroll;
 }
 
 .blue {

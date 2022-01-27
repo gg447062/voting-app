@@ -9,7 +9,8 @@ const Footer = () => {
   const dispatch = useDispatch();
 
   const increment = () => {
-    if (current === total - 1) {
+    // should be total - 1
+    if (current === 10) {
       dispatch(setComplete(true));
     } else {
       dispatch(setCurrent(current + 1));
