@@ -31,12 +31,18 @@ const Card2 = () => {
             {/* left */}
             <div className="tile is-parent is-vertical is-7">
               <div className="tile video-wrapper">
-                <ReactPlayer
+                {/* <ReactPlayer
                   className="video"
                   url={allApplications[currentIndex]['Video']}
                   controls
                   height="100%"
                   width="100%"
+                ></ReactPlayer> */}
+                <ReactPlayer
+                  url="https://www.youtube.com/embed/nU21rCWkuJw"
+                  // className="video"
+                  // height="100%"
+                  // width="100%"
                 ></ReactPlayer>
               </div>
               <div className="tile is-parent is-vertical has-border c2a-wrapper">

@@ -28,11 +28,16 @@ button {
 }
 
 .video-wrapper {
-  // max-width: 95%;
+  // max-height: 20rem;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 0.75rem;
+}
+
+.video {
+  height: 100%;
+  width: 100%;
 }
 
 .c2a-header {
@@ -69,6 +74,7 @@ button {
 
 .vote-card {
   max-height: 95vh;
+  max-width: 60vw;
   overflow-y: scroll;
 }
 
