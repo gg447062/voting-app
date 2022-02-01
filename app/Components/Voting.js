@@ -6,8 +6,7 @@ import { debounce } from 'lodash';
 const Voting = () => {
   const approved = useSelector((state) => state.applications.approved);
   const available = useSelector((state) => state.votes.available);
-  const used = useSelector((state) => state.votes.used);
-  // const [maxedOut, setMaxedOut] = useState(false);
+
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -30,34 +29,37 @@ const Voting = () => {
   }, []);
 
   return (
-    <div className="tile is-vertical is-parent">
+    <div className="vote-card-wrapper ">
+      {/*  ^^^ tile is-parent  */}
       <div className="">
-        <h2>Cast Your Vote</h2>
+        <h2>Cast Your Vote </h2>
         <h2>Remaining Votes: {available}</h2>
       </div>
       <form
         onSubmit={handleSubmit}
-        className="vote-card tile has-border is-vertical is-child"
+        className="vote-card has-border has-shadow tile is-vertical is-child"
       >
         {approved.map((el, i) => {
           return (
-            <div className="tile is-parent" key={i}>
+            <div className="tile is-parent is-6" key={i}>
               <div className="tile is-child">
-                {/* <p>{el['Project Name']}</p> */}
                 <label htmlFor={el['Project Name']}>
                   {el['Project Name']}{' '}
                 </label>
                 <input
                   id={i}
-                  type="text"
+                  type="number"
+                  min="0"
+                  max={available}
                   name={el['Project Name']}
                   onChange={debouncedHandleChange}
-                  disabled={used == available}
+                  // disabled={available == 0}
                 ></input>
               </div>
             </div>
           );
         })}
+
         <button type="submit">submit</button>
       </form>
     </div>

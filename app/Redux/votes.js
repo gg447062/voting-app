@@ -26,17 +26,17 @@ const votesReducer = (state = initState, action) => {
       };
 
     case UPDATE_VOTES:
-      const total =
-        state.list.reduce((total, id) => (total += id.votes), 0) + action.votes;
+      const _list = state.list.map((el) => {
+        return el.id === parseInt(action.id)
+          ? { ...el, votes: action.votes }
+          : el;
+      });
+      const total = _list.reduce((total, id) => (total += id.votes), 0);
       return {
         ...state,
         available: state.votingPower - total,
         used: total,
-        list: state.list.map((el) => {
-          return el.id === parseInt(action.id)
-            ? { ...el, votes: action.votes }
-            : el;
-        }),
+        list: _list,
       };
     default:
       return state;
