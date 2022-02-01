@@ -11,7 +11,6 @@ axios.defaults.baseURL =
 const SET_APPLICATIONS = 'SET_APPLICATIONS';
 const APPROVE = 'APPROVE';
 const SET_CURRENT = 'SET_CURRENT';
-const SET_COMPLETE = 'SET_COMPLETE';
 
 const setApplications = (records) => ({
   type: SET_APPLICATIONS,
@@ -26,11 +25,6 @@ export const approve = (index) => ({
 export const setCurrent = (index) => ({
   type: SET_CURRENT,
   index,
-});
-
-export const setComplete = (value) => ({
-  type: SET_COMPLETE,
-  value,
 });
 
 export const fetchRecords = () => {
@@ -59,7 +53,7 @@ export const fetchRecords = () => {
   };
 };
 
-const initState = { all: [], approved: [], current: 0, complete: false };
+const initState = { all: [], approved: [], current: 0 };
 
 const applicationsReducer = (state = initState, action) => {
   switch (action.type) {
@@ -70,8 +64,6 @@ const applicationsReducer = (state = initState, action) => {
       return { ...state, approved: [...state.approved, _all[action.index]] };
     case SET_CURRENT:
       return { ...state, current: action.index };
-    case SET_COMPLETE:
-      return { ...state, complete: action.value };
     default:
       return state;
   }

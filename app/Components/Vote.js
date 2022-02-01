@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setInitialVotes, updateVotes } from '../Redux/votes';
 import { debounce } from 'lodash';
 
-const Voting = () => {
+const Vote = () => {
   const approved = useSelector((state) => state.applications.approved);
   const available = useSelector((state) => state.votes.available);
 
@@ -66,4 +66,4 @@ const Voting = () => {
   );
 };
 
-export default Voting;
+export default Vote;

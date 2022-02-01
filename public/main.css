@@ -24,6 +24,31 @@ button {
   box-shadow: 0 2px black;
 }
 
+.is-flex-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.blue {
+  background-color: #0088ff;
+}
+
+.green {
+  background-color: #3ee42f;
+}
+
+.connect-wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+.connect-container {
+  width: 50vw;
+  height: 50vh;
+}
+
 .video-wrapper {
   display: flex;
   align-items: center;
@@ -52,8 +77,8 @@ button {
 }
 
 .main {
-  width: 95vw;
-  height: 95vh;
+  max-width: 95vw;
+  max-height: 95vh;
 }
 
 .buttons {
@@ -81,21 +106,6 @@ button {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-
-.is-flex-column {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.blue {
-  background-color: #0088ff;
-}
-
-.green {
-  background-color: #3ee42f;
 }
 
 /* Bulma Utilities */

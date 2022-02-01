@@ -1,23 +1,22 @@
 import React from 'react';
-import Card from './Card';
-import Footer from './Footer';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Voting from './Voting';
-import Card2 from './Card-2';
+import Vote from './Vote';
+import Review from './Review';
+import Connect from './Connect';
 
 const App = () => {
   const complete = useSelector((state) => state.applications.complete);
   return (
     <div className="main tile is-ancestor is-vertical is-family-monospace">
-      {!complete ? (
-        <React.Fragment>
-          {/* <Card /> */}
-          <Card2 />
-          <Footer />
-        </React.Fragment>
-      ) : (
-        <Voting />
-      )}
+      {/* {!complete ? <Review /> : <Vote />} */}
+      <Router>
+        <Routes>
+          <Route path={'/'} element={<Connect />} />
+          <Route path={'review'} element={<Review />} />
+          <Route path={'vote'} element={<Vote />} />
+        </Routes>
+      </Router>
     </div>
   );
 };

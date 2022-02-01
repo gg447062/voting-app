@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchRecords } from '../Redux/applications';
 
 const Card2 = () => {
   const allApplications = useSelector((state) => state.applications.all);
   const currentIndex = useSelector((state) => state.applications.current);
+  const address = useSelector((state) => state.account.address);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchRecords());
-    console.log('fetching');
+    if (address) {
+      dispatch(fetchRecords());
+    } else {
+      navigate('/');
+    }
   }, []);
 
   return (
@@ -31,18 +37,9 @@ const Card2 = () => {
             {/* left */}
             <div className="tile is-parent is-vertical is-7">
               <div className="tile video-wrapper">
-                {/* <ReactPlayer
-                  className="video"
-                  url={allApplications[currentIndex]['Video']}
-                  controls
-                  height="100%"
-                  width="100%"
-                ></ReactPlayer> */}
                 <ReactPlayer
                   url="https://www.youtube.com/embed/nU21rCWkuJw"
                   // className="video"
-                  // height="100%"
-                  // width="100%"
                 ></ReactPlayer>
               </div>
               <div className="tile is-parent is-vertical has-border c2a-wrapper">

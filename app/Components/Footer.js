@@ -1,17 +1,20 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setComplete, setCurrent } from '../Redux/applications';
+import { setCurrent } from '../Redux/applications';
+import { useNavigate } from 'react-router-dom';
 import { approve } from '../Redux/applications';
 
 const Footer = () => {
   const current = useSelector((state) => state.applications.current);
   const total = useSelector((state) => state.applications.all.length);
+  const votingPower = useSelector((state) => state.account.votingPower);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const increment = () => {
     // should be total - 1
     if (current === 10) {
-      dispatch(setComplete(true));
+      navigate('/vote');
     } else {
       dispatch(setCurrent(current + 1));
     }
@@ -51,7 +54,7 @@ const Footer = () => {
         <div className="tile is-child is-4"></div>
       </div>
       <div className="tile is-child is-3 footer-message">
-        <h4>Voting power: XXX $CLUB</h4>
+        <h4>Voting power: {votingPower} $CLUB</h4>
         <p>You'll be able to allocate votes after your initial review</p>
       </div>
     </div>
