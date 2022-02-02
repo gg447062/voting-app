@@ -8,16 +8,16 @@ import Connect from './Connect';
 const App = () => {
   const complete = useSelector((state) => state.applications.complete);
   return (
-    <div className="main tile is-ancestor is-vertical is-family-monospace">
-      {/* {!complete ? <Review /> : <Vote />} */}
+    <main className="tile is-ancestor is-vertical is-family-monospace">
+      {/* <main className="is-family-monospace"> */}
       <Router>
         <Routes>
-          <Route path={'/'} element={<Connect />} />
-          <Route path={'review'} element={<Review />} />
+          {/* <Route path={'/'} element={<Connect />} /> */}
+          <Route path={'/'} element={<Review />} />
           <Route path={'vote'} element={<Vote />} />
         </Routes>
       </Router>
-    </div>
+    </main>
   );
 };
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import Card2 from './Card-2';
+import Card from './Card';
 import Footer from './Footer';
 
 const Review = () => {
   return (
     <React.Fragment>
-      <Card2 />
+      <Card />
       <Footer />
     </React.Fragment>
   );

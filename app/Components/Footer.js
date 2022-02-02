@@ -30,7 +30,7 @@ const Footer = () => {
   };
 
   return (
-    <div className="footer tile is-parent">
+    <div className="is-flex-row ">
       <div className="tile is-child is-3">
         <p>
           {current} of {total} projects reviewed
