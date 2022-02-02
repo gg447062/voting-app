@@ -6,6 +6,8 @@ import { debounce } from 'lodash';
 const Vote = () => {
   const approved = useSelector((state) => state.applications.approved);
   const available = useSelector((state) => state.votes.available);
+  const used = useSelector((state) => state.votes.used);
+  const list = useSelector((state) => state.votes.list);
 
   const dispatch = useDispatch();
 
@@ -33,7 +35,7 @@ const Vote = () => {
       {/*  ^^^ tile is-parent  */}
       <div className="">
         <h2>Cast Your Vote </h2>
-        <h2>Remaining Votes: {available}</h2>
+        {/* <h2>Remaining Votes: {available}</h2> */}
       </div>
       <form
         onSubmit={handleSubmit}
@@ -50,11 +52,16 @@ const Vote = () => {
                   id={i}
                   type="number"
                   min="0"
-                  max={available}
+                  // max={available}
                   name={el['Project Name']}
                   onChange={debouncedHandleChange}
                   // disabled={available == 0}
                 ></input>
+                <div className="percentage">
+                  {list.length > 0 && list[i].votes !== 0
+                    ? ((100 * list[i].votes) / used).toFixed(2) + '%'
+                    : 0 + '%'}
+                </div>
               </div>
             </div>
           );
