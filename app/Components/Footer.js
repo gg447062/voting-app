@@ -2,18 +2,18 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrent } from '../Redux/applications';
 import { useNavigate } from 'react-router-dom';
-import { approve } from '../Redux/applications';
+import { approve } from '../Redux/votes';
 
 const Footer = () => {
+  const all = useSelector((state) => state.applications.all);
   const current = useSelector((state) => state.applications.current);
-  const total = useSelector((state) => state.applications.all.length);
   const votingPower = useSelector((state) => state.account.votingPower);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const increment = () => {
-    // should be total - 1
-    if (current === 10) {
+    // should be all.length - 1
+    if (current === 9) {
       navigate('/vote');
     } else {
       dispatch(setCurrent(current + 1));
@@ -21,7 +21,9 @@ const Footer = () => {
   };
 
   const onThumbsUp = () => {
-    dispatch(approve(current));
+    dispatch(
+      approve({ id: current, name: all[current]['Project Name'], votes: 0 })
+    );
     increment();
   };
 
@@ -33,12 +35,12 @@ const Footer = () => {
     <div className="is-flex-row ">
       <div className="tile is-child is-3">
         <p>
-          {current} of {total} projects reviewed
+          {current} of {all.length} projects reviewed
         </p>
         <progress
           className="progress is-small"
           value={current}
-          max={total}
+          max={all.length}
         ></progress>
       </div>
       <div className="tile is-6 ">

@@ -1,66 +1,68 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setInitialVotes, updateVotes } from '../Redux/votes';
+import { updateVotes } from '../Redux/votes';
 import { debounce } from 'lodash';
 
 const Vote = () => {
-  const approved = useSelector((state) => state.applications.approved);
-  const available = useSelector((state) => state.votes.available);
-  const used = useSelector((state) => state.votes.used);
-  const list = useSelector((state) => state.votes.list);
+  const approved = useSelector((state) => state.votes.approved);
+  const total = useSelector((state) => state.votes.total);
 
   const dispatch = useDispatch();
 
+  const getPercentage = (a, b, stripped = false) => {
+    if (a == 0 || b == 0) {
+      return '0%';
+    }
+
+    const percent = ((100 * a) / b).toFixed(2);
+    const digits = percent.toString().split('.');
+
+    if (stripped) {
+      return parseInt(digits[0]);
+    } else {
+      return digits[1] == '00' ? `${digits[0]}%` : `${percent}%`;
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('voted');
+    const finalList = approved
+      .filter((el) => el.votes !== 0)
+      .map((el) => {
+        const _el = { id: el.id, votes: getPercentage(el.votes, total, true) };
+        return _el;
+      });
+    console.log(finalList);
   };
 
   const handleChange = (e) => {
-    const votes = parseInt(e.target.value);
-    dispatch(updateVotes(e.target.id, votes));
+    dispatch(updateVotes(parseInt(e.target.id), parseInt(e.target.value)));
   };
 
   const debouncedHandleChange = useMemo(() => debounce(handleChange, 300), []);
 
-  useEffect(() => {
-    const list = approved.map((_, index) => {
-      return { id: index, votes: 0 };
-    });
-    dispatch(setInitialVotes(20, list));
-  }, []);
-
   return (
     <div className="vote-card-wrapper ">
       {/*  ^^^ tile is-parent  */}
-      <div className="">
-        <h2>Cast Your Vote </h2>
-        {/* <h2>Remaining Votes: {available}</h2> */}
-      </div>
+      <h2>Cast Your Vote </h2>
       <form
         onSubmit={handleSubmit}
-        className="vote-card has-border has-shadow tile is-vertical is-child"
+        className="vote-card has-border has-shadow is-flex-column"
       >
         {approved.map((el, i) => {
           return (
-            <div className="tile is-parent is-6" key={i}>
+            <div className="tile is-parent is-6" key={el.id}>
               <div className="tile is-child">
-                <label htmlFor={el['Project Name']}>
-                  {el['Project Name']}{' '}
-                </label>
+                <label htmlFor={el.name}>{el.name} </label>
                 <input
-                  id={i}
+                  id={el.id}
                   type="number"
                   min="0"
-                  // max={available}
-                  name={el['Project Name']}
+                  name={el.name}
                   onChange={debouncedHandleChange}
-                  // disabled={available == 0}
                 ></input>
                 <div className="percentage">
-                  {list.length > 0 && list[i].votes !== 0
-                    ? ((100 * list[i].votes) / used).toFixed(2) + '%'
-                    : 0 + '%'}
+                  {getPercentage(approved[i].votes, total)}
                 </div>
               </div>
             </div>

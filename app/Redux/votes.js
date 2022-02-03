@@ -1,10 +1,9 @@
-const INIT_VOTES = 'INIT_VOTES';
+const APPROVE = 'APPROVE';
 const UPDATE_VOTES = 'UPDATE_VOTES';
 
-export const setInitialVotes = (votes, list) => ({
-  type: INIT_VOTES,
-  votes,
-  list,
+export const approve = (obj) => ({
+  type: APPROVE,
+  obj,
 });
 
 export const updateVotes = (id, votes) => ({
@@ -13,30 +12,24 @@ export const updateVotes = (id, votes) => ({
   votes,
 });
 
-const initState = { available: 0, used: 0, votingPower: 0, list: [] };
+const initState = { total: 0, approved: [] };
 
 const votesReducer = (state = initState, action) => {
   switch (action.type) {
-    case INIT_VOTES:
-      return {
-        ...state,
-        available: action.votes,
-        votingPower: action.votes,
-        list: action.list,
-      };
-
+    case APPROVE:
+      return { ...state, approved: [...state.approved, action.obj] };
     case UPDATE_VOTES:
-      const _list = state.list.map((el) => {
-        return el.id === parseInt(action.id)
-          ? { ...el, votes: action.votes }
-          : el;
+      const _approved = state.approved.map((el) => {
+        return el.id === action.id ? { ...el, votes: action.votes } : el;
       });
-      const total = _list.reduce((total, id) => (total += id.votes), 0);
+      const _total = _approved.reduce(
+        (total, current) => (total += current.votes),
+        0
+      );
       return {
         ...state,
-        available: state.votingPower - total,
-        used: total,
-        list: _list,
+        total: _total,
+        approved: _approved,
       };
     default:
       return state;

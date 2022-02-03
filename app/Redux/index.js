@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import applicationsReducer from './applications';
-import votesReducer from './votes';
 import accountReducer from './account';
+import votesReducer from './votes';
 
 const appReducer = combineReducers({
   applications: applicationsReducer,
-  votes: votesReducer,
   account: accountReducer,
+  votes: votesReducer,
 });
 
 export default appReducer;
