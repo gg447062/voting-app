@@ -1,12 +1,4 @@
-import axios from 'axios';
-import base from '../Airtable/index';
-
-axios.defaults.headers[
-  'Authorization'
-] = `Bearer ${process.env.AIRTABLE_API_KEY}`;
-
-axios.defaults.baseURL =
-  'https://api.airtable.com/v0/appZy0IcocUjMrryI/SC04%20Applications';
+import { getRecords } from '../Airtable/index';
 
 const SET_APPLICATIONS = 'SET_APPLICATIONS';
 const SET_CURRENT = 'SET_CURRENT';
@@ -24,21 +16,7 @@ export const setCurrent = (index) => ({
 export const fetchRecords = () => {
   return async (dispatch) => {
     try {
-      const { data: res } = await axios.get('/', {
-        params: {
-          view: 'Final List',
-          fields: [
-            'Project Name',
-            'Contact Name',
-            'Video',
-            'Call to Adventure',
-          ],
-        },
-      });
-
-      const applicationsData = res.records.map((record) => {
-        return record.fields;
-      });
+      const applicationsData = await getRecords();
 
       dispatch(setApplications(applicationsData));
     } catch (error) {
