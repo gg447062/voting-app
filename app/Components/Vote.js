@@ -1,13 +1,17 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateVotes } from '../Redux/votes';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
+import { updateVotes } from '../Redux/votes';
+import { vote } from '../Airtable';
 
 const Vote = () => {
   const approved = useSelector((state) => state.votes.approved);
   const total = useSelector((state) => state.votes.total);
+  const id = useSelector((state) => state.account.id);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getPercentage = (a, b, stripped = false) => {
     if (a == 0 || b == 0) {
@@ -24,15 +28,27 @@ const Vote = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const finalList = approved
       .filter((el) => el.votes !== 0)
-      .map((el) => {
-        const _el = { id: el.id, votes: getPercentage(el.votes, total, true) };
-        return _el;
-      });
-    console.log(finalList);
+      .map((curr) => {
+        return `${curr.name}: ${getPercentage(curr.votes, total)}`;
+      })
+      .join(', ');
+    // const finalList = approved
+    //   .filter((el) => el.votes !== 0)
+    //   .map((el) => {
+    //     const _el = {
+    //       name: el.name,
+    //       votes: getPercentage(el.votes, total, true),
+    //     };
+    //     return _el;
+    //   });
+
+    const result = await vote(id, finalList);
+    console.log(result);
+    navigate('/results');
   };
 
   const handleChange = (e) => {
