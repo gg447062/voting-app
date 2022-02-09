@@ -4,6 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "start": "node main.js",
+    "build": "webpack --mode production",
     "start-dev": "webpack serve --mode development",
     "style": "cd public && sass -w main.scss main.css"
   },
