@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setAccount } from '../Redux/account';
 import { getVoter } from '../Airtable';
 import { Link } from 'react-router-dom';
+import Web3 from 'web3';
+import { abi, contractAddress } from '../utils/token';
 
 const Connect = () => {
   const [disabled, setDisabled] = useState(false);
@@ -11,18 +13,36 @@ const Connect = () => {
   const dispatch = useDispatch();
   const { ethereum } = window;
 
+  const getBalance = async (_address) => {
+    const web3 = new Web3(Web3.givenProvider);
+    const chainId = await web3.eth.getChainId();
+    if (chainId === 1) {
+      const contract = new web3.eth.Contract(abi, contractAddress);
+      const balance = await contract.methods.balanceOf(_address).call();
+      return web3.utils.fromWei(balance, 'ether');
+    } else {
+      alert('please switch to mainnet');
+    }
+  };
+
   const getAccounts = async () => {
     const accounts = await ethereum.request({ method: 'eth_accounts' });
     const address = accounts[0];
     // get erc20 token balance - $CLUB
+    // const votingPower = await getBalance(address);
     const votingPower = 20;
-    const voter = await getVoter(address);
 
-    if (voter.fields['Voted'] === 'no') {
-      dispatch(setAccount(voter.id, address, votingPower));
+    const voter = await getVoter(address);
+    if (!voter) {
+      // production: if voter is not in database they can't vote
+      dispatch(setAccount(null, address, votingPower));
     } else {
-      setVoted(true);
+      dispatch(setAccount(voter.id, address, votingPower));
     }
+    // production: must be true ---> voter.fields['Voted'] === 'no'
+    // else {
+    //   setVoted(true);
+    // }
   };
 
   const connect = async () => {

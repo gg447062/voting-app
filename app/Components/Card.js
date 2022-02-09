@@ -12,7 +12,6 @@ const Card = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchRecords());
     if (address) {
       dispatch(fetchRecords());
     } else {

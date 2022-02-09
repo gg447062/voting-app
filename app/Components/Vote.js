@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 import { updateVotes } from '../Redux/votes';
-import { vote } from '../Airtable';
+import { vote, newVote } from '../Airtable';
 
 const Vote = () => {
   const approved = useSelector((state) => state.votes.approved);
   const total = useSelector((state) => state.votes.total);
-  const id = useSelector((state) => state.account.id);
+  const account = useSelector((state) => state.account);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,8 +46,12 @@ const Vote = () => {
     //     return _el;
     //   });
 
-    const result = await vote(id, finalList);
-    console.log(result);
+    if (account.id) {
+      await vote(account.id, finalList);
+    } else {
+      await newVote(account.address, account.votingPower, finalList);
+    }
+
     navigate('/results');
   };
 
