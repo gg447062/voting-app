@@ -28,8 +28,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new NodePolyfillPlugin(),
-    new Dotenv({ path: path.resolve(__dirname, '.env'), systemvars: true }),
-  ],
+  plugins: [new NodePolyfillPlugin(), new Dotenv({ systemvars: true })],
 };
