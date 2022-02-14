@@ -1,9 +1,10 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 import { updateVotes } from '../Redux/votes';
 import { vote, newVote } from '../Airtable';
+import { getFinalList, getPercentage } from '../utils';
 
 const Vote = () => {
   const approved = useSelector((state) => state.votes.approved);
@@ -13,43 +14,27 @@ const Vote = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const getPercentage = (a, b, stripped = false) => {
-    if (a == 0 || b == 0) {
-      return '0%';
-    }
-
-    const percent = ((100 * a) / b).toFixed(2);
-    const digits = percent.toString().split('.');
-
-    if (stripped) {
-      return parseInt(digits[0]);
-    } else {
-      return digits[1] == '00' ? `${digits[0]}%` : `${percent}%`;
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const finalList = approved
-      .filter((el) => el.votes !== 0)
-      .map((curr) => {
-        return `${curr.name}: ${getPercentage(curr.votes, total)}`;
-      })
-      .join(', ');
-    // const finalList = approved
-    //   .filter((el) => el.votes !== 0)
-    //   .map((el) => {
-    //     const _el = {
-    //       name: el.name,
-    //       votes: getPercentage(el.votes, total, true),
-    //     };
-    //     return _el;
-    //   });
+    const finalList = getFinalList(approved, total, false);
+    try {
+      const message = 'voting on seed club accelerator applications';
+      const messageHash = `0x${Buffer.from(message, 'utf8').toString('hex')}`;
 
-    if (account.id) {
-      await vote(account.id, finalList);
-    } else {
-      await newVote(account.address, account.votingPower, finalList);
+      const ethResult = await ethereum.request({
+        method: 'personal_sign',
+        params: [messageHash, account.address],
+      });
+
+      // will just be await vote - no updating votes
+      if (account.id) {
+        // ----- here send ethResult, account.address and finalList to back end
+        await vote(account.id, finalList);
+      } else {
+        await newVote(account.address, account.votingPower, finalList);
+      }
+    } catch (err) {
+      console.error(err);
     }
 
     navigate('/results');
