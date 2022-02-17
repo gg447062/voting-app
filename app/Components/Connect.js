@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAccount } from '../Redux/account';
-import { getVoter } from '../Airtable';
+// import { getVoter } from '../Airtable';
+import { getVoter } from '../Firebase';
 import { Link } from 'react-router-dom';
 import Web3 from 'web3';
 import { abi, contractAddress } from '../utils/token';
@@ -37,7 +38,9 @@ const Connect = () => {
       // production: if voter is not in database they can't vote
       dispatch(setAccount(null, address, votingPower));
     } else {
-      dispatch(setAccount(voter.id, address, votingPower));
+      // dispatch(setAccount(voter.id, address, votingPower));
+      console.log(voter);
+      dispatch(setAccount(null, address, votingPower));
     }
     // production: must be true ---> voter.fields['Voted'] === 'no'
     // else {

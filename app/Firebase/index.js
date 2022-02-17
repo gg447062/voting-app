@@ -2,9 +2,10 @@ import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
   collection,
+  query,
+  where,
+  getDocs,
   doc,
-  getDoc,
-  setDoc,
 } from 'firebase/firestore';
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,3 +23,19 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
+
+// db references
+const votersRef = collection(database, 'voters');
+
+// get whitelisted voter
+export const getVoter = async (address) => {
+  const voterQuery = query(
+    votersRef,
+    where('address', '==', address.toLowerCase()),
+    where('voted', '==', false)
+  );
+  const voterSnapshot = await getDocs(voterQuery);
+  const voters = [];
+  voterSnapshot.forEach((voter) => voters.push(voter.data()));
+  return voters[0];
+};
