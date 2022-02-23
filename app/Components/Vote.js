@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 import { updateVotes } from '../Redux/votes';
-import { vote, newVote } from '../Airtable';
+import { sendVotes, verifySignature } from '../Firebase';
 import { getFinalList, getPercentage } from '../utils';
+// import { verifySignature } from '../../functions';
 
 const Vote = () => {
   const approved = useSelector((state) => state.votes.approved);
@@ -16,28 +17,30 @@ const Vote = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const finalList = getFinalList(approved, total, false);
+    const finalList = getFinalList(approved, total, account.votingPower, true);
     try {
       const message = 'voting on seed club accelerator applications';
       const messageHash = `0x${Buffer.from(message, 'utf8').toString('hex')}`;
 
-      const ethResult = await ethereum.request({
+      const signature = await ethereum.request({
         method: 'personal_sign',
         params: [messageHash, account.address],
       });
 
-      // will just be await vote - no updating votes
-      if (account.id) {
-        // ----- here send ethResult, account.address and finalList to back end
-        await vote(account.id, finalList);
-      } else {
-        await newVote(account.address, account.votingPower, finalList);
+      const cohort = 0;
+      const verified = await verifySignature({
+        address: account.address,
+        messageHash,
+        signature,
+      });
+
+      if (verified) {
+        await sendVotes(account.address, cohort, finalList);
+        navigate('/results');
       }
     } catch (err) {
       console.error(err);
     }
-
-    navigate('/results');
   };
 
   const handleChange = (e) => {

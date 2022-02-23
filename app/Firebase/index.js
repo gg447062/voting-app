@@ -1,11 +1,17 @@
 import { initializeApp } from 'firebase/app';
 import {
+  getFunctions,
+  httpsCallable,
+  connectFunctionsEmulator,
+} from 'firebase/functions';
+import {
   getFirestore,
   collection,
   query,
   where,
   getDocs,
-  doc,
+  addDoc,
+  connectFirestoreEmulator,
 } from 'firebase/firestore';
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,10 +28,20 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const database = getFirestore(app);
+const db = getFirestore(app);
+const functions = getFunctions(app);
+
+if (window.location.hostname === 'localhost') {
+  connectFunctionsEmulator(functions, 'localhost', 5001);
+  connectFirestoreEmulator(db, 'localhost', 8080);
+}
 
 // db references
-const votersRef = collection(database, 'voters');
+const votersRef = collection(db, 'voters');
+const votesRef = collection(db, 'votes');
+
+// cloud functions
+export const verifySignature = httpsCallable(functions, 'verifySignature');
 
 // get whitelisted voter
 export const getVoter = async (address) => {
@@ -38,4 +54,14 @@ export const getVoter = async (address) => {
   const voters = [];
   voterSnapshot.forEach((voter) => voters.push(voter.data()));
   return voters[0];
+};
+
+// add votes to db
+export const sendVotes = async (address, cohort, votes) => {
+  try {
+    await addDoc(votesRef, { address, cohort, votes });
+  } catch (error) {
+    console.log(error);
+    return error.message;
+  }
 };
