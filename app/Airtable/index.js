@@ -39,35 +39,3 @@ export const getVoter = async (id) => {
 
   return voter;
 };
-
-export const vote = async (id, votes) => {
-  try {
-    const { data } = await axios.patch(`${votesBaseURL}/${id}`, {
-      fields: {
-        Voted: 'yes',
-        Votes: votes,
-      },
-    });
-
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const newVote = async (address, votingPower, votes) => {
-  try {
-    const { data } = await axios.post(votesBaseURL, {
-      fields: {
-        'Voter ID': address,
-        'Voting Power': votingPower,
-        Voted: 'yes',
-        Votes: votes,
-      },
-    });
-
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
