@@ -5,7 +5,7 @@ import Vote from './Vote';
 // import GridTest from './GridTest';
 import Connect from './Connect';
 import Results from './Results';
-import Review from './Review/Review';
+import Review from './Review';
 
 const App = () => {
   const complete = useSelector((state) => state.applications.complete);
