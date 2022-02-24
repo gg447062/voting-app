@@ -1,9 +1,16 @@
-const APPROVE = 'APPROVE';
+const ADD = 'ADD';
+const REMOVE = 'REMOVE';
 const UPDATE_VOTES = 'UPDATE_VOTES';
 
-export const approve = (obj) => ({
-  type: APPROVE,
+export const add = (idx, obj) => ({
+  type: ADD,
+  idx,
   obj,
+});
+
+export const remove = (idx) => ({
+  type: REMOVE,
+  idx,
 });
 
 export const updateVotes = (id, votes) => ({
@@ -12,24 +19,37 @@ export const updateVotes = (id, votes) => ({
   votes,
 });
 
-const initState = { total: 0, approved: [] };
+const initState = {
+  total: 0,
+  approved: [],
+  top10: [null, null, null, null, null, null, null, null, null, null],
+};
 
 const votesReducer = (state = initState, action) => {
+  let _top10;
   switch (action.type) {
-    case APPROVE:
-      return { ...state, approved: [...state.approved, action.obj] };
+    case ADD:
+      _top10 = state.top10.map((el, i) => {
+        return i === parseInt(action.idx) ? action.obj : el;
+      });
+      return { ...state, top10: _top10 };
+    case REMOVE:
+      _top10 = state.top10.map((el, i) => {
+        return i === parseInt(action.idx) ? null : el;
+      });
+      return { ...state, top10: _top10 };
     case UPDATE_VOTES:
-      const _approved = state.approved.map((el) => {
+      _top10 = state.approved.map((el) => {
         return el.id === action.id ? { ...el, votes: action.votes } : el;
       });
-      const _total = _approved.reduce(
+      const _total = _top10.reduce(
         (total, current) => (total += current.votes),
         0
       );
       return {
         ...state,
         total: _total,
-        approved: _approved,
+        top10: _top10,
       };
     default:
       return state;

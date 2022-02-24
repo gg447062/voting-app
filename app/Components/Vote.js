@@ -7,7 +7,7 @@ import { sendVotes, verifySignature } from '../Firebase';
 import { getFinalList, getPercentage } from '../utils';
 
 const Vote = () => {
-  const approved = useSelector((state) => state.votes.approved);
+  const top10 = useSelector((state) => state.votes.top10);
   const total = useSelector((state) => state.votes.total);
   const account = useSelector((state) => state.account);
 
@@ -16,7 +16,7 @@ const Vote = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const finalList = getFinalList(approved, total, account.votingPower, true);
+    const finalList = getFinalList(top10, total, account.votingPower, true);
     try {
       const message = 'voting on seed club accelerator applications';
       const messageHash = `0x${Buffer.from(message, 'utf8').toString('hex')}`;
@@ -56,7 +56,7 @@ const Vote = () => {
         onSubmit={handleSubmit}
         className="vote-card has-border has-shadow is-flex-column"
       >
-        {approved.map((el, i) => {
+        {top10.map((el, i) => {
           return (
             <div className="tile is-parent is-6" key={el.id}>
               <div className="tile is-child">
@@ -69,7 +69,7 @@ const Vote = () => {
                   onChange={debouncedHandleChange}
                 ></input>
                 <div className="percentage">
-                  {getPercentage(approved[i].votes, total)}
+                  {getPercentage(top10[i].votes, total)}
                 </div>
               </div>
             </div>
