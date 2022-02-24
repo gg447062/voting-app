@@ -35,9 +35,12 @@ const Card = () => {
 
   return (
     <div className="card--container flex container has-border">
-      <div className="arrow" onClick={previous}>
-        prev
-      </div>
+      <img
+        className="arrow"
+        src="assets/images/arrow_left.png"
+        alt="left arrow"
+        onClick={previous}
+      ></img>
       {allApplications.length > 0 && (
         <div className="flex card--info">
           <div className="card--title">
@@ -74,9 +77,12 @@ const Card = () => {
           </div>
         </div>
       )}
-      <div className="arrow" onClick={next}>
-        next
-      </div>
+      <img
+        className="arrow"
+        src="assets/images/arrow.png"
+        alt="right arrow"
+        onClick={next}
+      ></img>
     </div>
   );
 };
