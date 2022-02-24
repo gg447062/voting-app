@@ -13,7 +13,6 @@ const Card = () => {
 
   const next = () => {
     const nextIndex = (currentIndex + 1) % allApplications.length;
-    console.log(nextIndex);
     dispatch(setCurrent(nextIndex));
   };
 
@@ -22,7 +21,6 @@ const Card = () => {
       currentIndex - 1 < 0
         ? allApplications.length + currentIndex - 1
         : (currentIndex - 1) % allApplications.length;
-    console.log(previousIndex);
     dispatch(setCurrent(previousIndex));
   };
 

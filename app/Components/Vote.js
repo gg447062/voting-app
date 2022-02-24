@@ -5,7 +5,6 @@ import { debounce } from 'lodash';
 import { updateVotes } from '../Redux/votes';
 import { sendVotes, verifySignature } from '../Firebase';
 import { getFinalList, getPercentage } from '../utils';
-// import { verifySignature } from '../../functions';
 
 const Vote = () => {
   const approved = useSelector((state) => state.votes.approved);
