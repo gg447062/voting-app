@@ -1,9 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrent } from '../../Redux/applications';
 
 const Carousel = () => {
   const all = useSelector((state) => state.applications.all);
   const current = useSelector((state) => state.applications.current);
+  const dispatch = useDispatch();
+
+  const handleClick = (e) => {
+    dispatch(setCurrent(parseInt(e.target.id)));
+  };
 
   return (
     <div className="carousel--container ">
@@ -15,7 +21,9 @@ const Carousel = () => {
                 className={`carousel--circle has-border ${
                   current == i ? 'selected' : ''
                 }`}
+                id={i}
                 key={i}
+                onClick={handleClick}
               >
                 {el['Project Name'][0]}
               </div>

@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { remove } from '../../Redux/votes';
+import { removeFromTop10 } from '../../Redux/votes';
 
 const SelectedButton = ({ src, id }) => {
   const dispatch = useDispatch();
-  const removeFromTop10 = (e) => {
-    dispatch(remove(e.target.id));
+
+  const handleClick = (e) => {
+    dispatch(removeFromTop10(e.target.id));
   };
 
   return (
@@ -15,7 +16,7 @@ const SelectedButton = ({ src, id }) => {
         <button
           id={id}
           className="remove-button has-border"
-          onClick={removeFromTop10}
+          onClick={handleClick}
         >
           X
         </button>

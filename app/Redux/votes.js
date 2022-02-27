@@ -2,13 +2,13 @@ const ADD = 'ADD';
 const REMOVE = 'REMOVE';
 const UPDATE_VOTES = 'UPDATE_VOTES';
 
-export const add = (idx, obj) => ({
+export const addToTop10 = (idx, obj) => ({
   type: ADD,
   idx,
   obj,
 });
 
-export const remove = (idx) => ({
+export const removeFromTop10 = (idx) => ({
   type: REMOVE,
   idx,
 });
@@ -21,8 +21,7 @@ export const updateVotes = (id, votes) => ({
 
 const initState = {
   total: 0,
-  approved: [],
-  top10: [null, null, null, null, null, null, null, null, null, null],
+  top10: new Array(10).fill(null),
 };
 
 const votesReducer = (state = initState, action) => {
@@ -39,7 +38,7 @@ const votesReducer = (state = initState, action) => {
       });
       return { ...state, top10: _top10 };
     case UPDATE_VOTES:
-      _top10 = state.approved.map((el) => {
+      _top10 = state.top10.map((el) => {
         return el.id === action.id ? { ...el, votes: action.votes } : el;
       });
       const _total = _top10.reduce(

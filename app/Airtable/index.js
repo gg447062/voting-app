@@ -15,6 +15,7 @@ export const getRecords = async () => {
     params: {
       view: 'Final List',
       fields: ['Project Name', 'Contact Name', 'Video', 'Call to Adventure'],
+      maxRecords: 30,
     },
   });
 
