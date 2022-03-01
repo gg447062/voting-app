@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToTop10 } from '../../Redux/votes';
 
-const EmptyButton = () => {
+const EmptyButton = ({ id }) => {
   const current = useSelector((state) => state.applications.current);
   const all = useSelector((state) => state.applications.all);
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const EmptyButton = () => {
     );
   };
   return (
-    <div className="circle has-border" id={i} onClick={handleClick} key={i}>
+    <div className="circle green-circular" id={id} onClick={handleClick}>
       +
     </div>
   );

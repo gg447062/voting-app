@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import SelectedButton from './SelectedButton';
 import EmptyButton from './EmptyButton';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Top10 = () => {
   const top10 = useSelector((state) => state.votes.top10);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/vote');
+  };
 
   return (
-    <div className="container has-border top10--container">
-      <div className="top10--title fs-600">TOP 10</div>
+    <div className="container has-border top10--container green">
+      <div className="top10--title fs-500">Favorites</div>
       <div className="grid top10--grid">
         {top10.map((el, i) => {
           {
@@ -21,8 +27,12 @@ const Top10 = () => {
           }
         })}
       </div>
-      <button className="has-border next-button" disabled={disabled}>
-        FINISHED
+      <button
+        className="has-border next-button ff-serif"
+        disabled={disabled}
+        onClick={handleClick}
+      >
+        Ready to Vote
       </button>
     </div>
   );

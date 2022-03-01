@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAccount } from '../Redux/account';
-// import { getVoter } from '../Airtable';
 import { getVoter } from '../Firebase';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Web3 from 'web3';
 import { abi, contractAddress } from '../utils/token';
 
-const Connect = () => {
+const ConnectButton = () => {
   const [disabled, setDisabled] = useState(false);
   const [voted, setVoted] = useState(false);
-  const account = useSelector((state) => state.account.address);
+  const address = useSelector((state) => state.account.address);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { ethereum } = window;
 
@@ -29,7 +29,7 @@ const Connect = () => {
   const getAccounts = async () => {
     const accounts = await ethereum.request({ method: 'eth_accounts' });
     const address = accounts[0];
-    // get erc20 token balance - $CLUB
+    // get $CLUB token balance
     // const votingPower = await getBalance(address);
     const votingPower = 20;
 
@@ -54,6 +54,7 @@ const Connect = () => {
         setDisabled(!disabled);
         await ethereum.request({ method: 'eth_requestAccounts' });
         getAccounts();
+        navigate('/review');
       } catch (error) {
         console.log(error);
         alert(error.message);
@@ -65,20 +66,14 @@ const Connect = () => {
   };
 
   return (
-    <div className="connect-wrapper is-flex-column">
-      <div className="connect-container is-flex-column has-border has-shadow">
-        <button onClick={connect} disabled={disabled}>
-          {!account ? 'connect wallet' : 'connected'}
-        </button>
-        {account && !voted && (
-          <Link to="/review">
-            <button>View Applications</button>
-          </Link>
-        )}
-        {voted && <div>You have already voted</div>}
-      </div>
-    </div>
+    <button
+      className="connect-button ff-serif green-font"
+      onClick={connect}
+      disabled={disabled}
+    >
+      {!address ? 'Connect to enter the Accelerator Portal' : 'disconnect'}
+    </button>
   );
 };
 
-export default Connect;
+export default ConnectButton;

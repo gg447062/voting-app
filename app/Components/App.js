@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Vote from './Vote';
 // import GridTest from './GridTest';
-import Connect from './Connect';
+import Home from './Home';
 import Results from './Results';
 import Review from './Review';
 
@@ -13,8 +13,8 @@ const App = () => {
     <main>
       <Router>
         <Routes>
-          <Route path={'connect'} element={<Connect />} />
-          <Route path={'/'} element={<Review />} />
+          <Route path={'/'} element={<Home />} />
+          <Route path={'review'} element={<Review />} />
           <Route path={'vote'} element={<Vote />} />
           <Route path={'results'} element={<Results />} />
         </Routes>

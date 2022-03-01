@@ -1,4 +1,6 @@
 import React, { useMemo } from 'react';
+import Header from './Header';
+import ConnectButton from './ConnectButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
@@ -7,7 +9,13 @@ import { sendVotes, verifySignature } from '../Firebase';
 import { getFinalList, getPercentage } from '../utils';
 
 const Vote = () => {
-  const top10 = useSelector((state) => state.votes.top10);
+  const top10 = new Array(10).fill({
+    id: 0,
+    src: 'F',
+    name: 'Floppy',
+    votes: 0,
+  });
+  // const top10 = useSelector((state) => state.votes.top10);
   const total = useSelector((state) => state.votes.total);
   const account = useSelector((state) => state.account);
 
@@ -49,17 +57,17 @@ const Vote = () => {
   const debouncedHandleChange = useMemo(() => debounce(handleChange, 300), []);
 
   return (
-    <div className="vote-card-wrapper ">
-      {/*  ^^^ tile is-parent  */}
-      <h2>Cast Your Vote </h2>
-      <form
-        onSubmit={handleSubmit}
-        className="vote-card has-border has-shadow is-flex-column"
-      >
+    <div className="grid container voting-grid">
+      <Header align="sb">
+        <div>{account.address}</div>
+        <div>ACCELERATOR 5</div>
+        <ConnectButton />
+      </Header>
+      <form className="grid votes--top10-grid green">
         {top10.map((el, i) => {
           return (
-            <div className="tile is-parent is-6" key={el.id}>
-              <div className="tile is-child">
+            <div className="flex has-border" key={el.id}>
+              <div className="flex vote--icon">
                 <label htmlFor={el.name}>{el.name} </label>
                 <input
                   id={el.id}
@@ -75,9 +83,14 @@ const Vote = () => {
             </div>
           );
         })}
-
-        <button type="submit">submit</button>
       </form>
+      <div className="vote--footer flex sb green ff-serif">
+        <div>1 $CLUB = 1 VOTE</div>
+        <div>100/100 $CLUB Remaining</div>
+        <button className="connect-button" onClick={handleSubmit}>
+          VOTE
+        </button>
+      </div>
     </div>
   );
 };

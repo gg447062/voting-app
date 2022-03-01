@@ -34,7 +34,7 @@ const Card = () => {
   }, []);
 
   return (
-    <div className="card--container flex container has-border">
+    <div className="card--container flex container has-border green">
       <img
         className="arrow"
         src="assets/images/arrow_left.png"
@@ -43,36 +43,50 @@ const Card = () => {
       ></img>
       {allApplications.length > 0 && (
         <div className="flex card--info">
-          <div className="card--title">
+          {/* top */}
+          <div className="card--title flex">
+            <div className="card--logo dark">
+              {allApplications[currentIndex]['Project Name'][0]}
+            </div>
             <h1 className="fs-700 ff-serif">
               {allApplications[currentIndex]['Project Name']}
             </h1>
-            <div className="card--subtitle flex">
+          </div>
+          {/* bottom */}
+          <div className="card--bottom flex">
+            {/* left */}
+            <iframe
+              src="https://www.youtube.com/embed/nU21rCWkuJw"
+              frameBorder="0"
+              className="video"
+              style={{ borderRadius: '1.5em' }}
+            />
+            {/* right */}
+            <div className="card--right flex">
               <h2 className="fs-400">
                 {allApplications[currentIndex]['Contact Name']}
               </h2>
-              <div className="flex">
-                <img
-                  className="card--title-image"
-                  src="assets/images/discord_icon.png"
-                  alt="discord logo"
-                ></img>
-                <img
-                  className="card--title-image"
-                  src="assets/images/twitter_icon.png"
-                  alt="twitter logo"
-                ></img>
+              <div className="c2a">
+                <div className="fs-400 ff-sans-c">
+                  {allApplications[currentIndex]['Call to Adventure']}
+                </div>
               </div>
-            </div>
-          </div>
-          <iframe
-            src="https://www.youtube.com/embed/nU21rCWkuJw"
-            frameBorder="0"
-            className="video"
-          />
-          <div className="c2a">
-            <div className="fs-400 ff-sans-c c2a--text">
-              {allApplications[currentIndex]['Call to Adventure']}
+              <div className="flex">
+                <a href="https://discord.com/" target={'_blank'}>
+                  <img
+                    className="card--icon"
+                    src="assets/images/discord_icon.png"
+                    alt="discord logo"
+                  />
+                </a>
+                <a href="https://twitter.com/home" target={'_blank'}>
+                  <img
+                    className="card--icon"
+                    src="assets/images/twitter_icon.png"
+                    alt="twitter logo"
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>

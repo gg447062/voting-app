@@ -12,9 +12,9 @@ const Carousel = () => {
   };
 
   return (
-    <div className="carousel--container ">
+    <div className="carousel--container">
       {all.length > 0 && (
-        <div className="carousel container flex has-border">
+        <div className="carousel container flex has-border green">
           {all.map((el, i) => {
             return (
               <div
