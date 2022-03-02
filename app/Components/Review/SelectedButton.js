@@ -11,7 +11,10 @@ const SelectedButton = ({ src, id }) => {
 
   return (
     <React.Fragment>
-      <div className="circle has-border in-top10">
+      <div
+        className="circle has-border in-top10"
+        style={{ backgroundImage: "url('assets/images/chip_1_1.png')" }}
+      >
         {src}
         <button
           id={id}

@@ -30,8 +30,7 @@ const ConnectButton = () => {
     const accounts = await ethereum.request({ method: 'eth_accounts' });
     const address = accounts[0];
     // get $CLUB token balance
-    // const votingPower = await getBalance(address);
-    const votingPower = 20;
+    const votingPower = await getBalance(address);
 
     const voter = await getVoter(address);
     if (!voter) {
@@ -39,7 +38,7 @@ const ConnectButton = () => {
       dispatch(setAccount(null, address, votingPower));
     } else {
       // dispatch(setAccount(voter.id, address, votingPower));
-      console.log(voter);
+
       dispatch(setAccount(null, address, votingPower));
     }
     // production: must be true ---> voter.fields['Voted'] === 'no'
@@ -53,7 +52,7 @@ const ConnectButton = () => {
       try {
         setDisabled(!disabled);
         await ethereum.request({ method: 'eth_requestAccounts' });
-        getAccounts();
+        await getAccounts();
         navigate('/review');
       } catch (error) {
         console.log(error);

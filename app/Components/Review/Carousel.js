@@ -8,6 +8,7 @@ const Carousel = () => {
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
+    console.log(e.target.id);
     dispatch(setCurrent(parseInt(e.target.id)));
   };
 
@@ -24,8 +25,9 @@ const Carousel = () => {
                 id={i}
                 key={i}
                 onClick={handleClick}
+                style={{ backgroundImage: "url('assets/images/chip_1_1.png')" }}
               >
-                {el['Project Name'][0]}
+                {/* use project logo here */}
               </div>
             );
           })}

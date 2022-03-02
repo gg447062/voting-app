@@ -25,12 +25,11 @@ const Card = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchRecords());
-    // if (address) {
-    //   dispatch(fetchRecords());
-    // } else {
-    //   navigate('/');
-    // }
+    if (address) {
+      dispatch(fetchRecords());
+    } else {
+      navigate('/');
+    }
   }, []);
 
   return (
@@ -45,12 +44,10 @@ const Card = () => {
         <div className="flex card--info">
           {/* top */}
           <div className="card--title flex">
-            <div className="card--logo dark">
-              {allApplications[currentIndex]['Project Name'][0]}
-            </div>
-            <h1 className="fs-700 ff-serif">
+            <h1 className="fs-800 ff-serif">
               {allApplications[currentIndex]['Project Name']}
             </h1>
+            {/* <h1 className="fs-800">SEED CLUB ACCELERATOR 5</h1> */}
           </div>
           {/* bottom */}
           <div className="card--bottom flex">
@@ -63,9 +60,12 @@ const Card = () => {
             />
             {/* right */}
             <div className="card--right flex">
-              <h2 className="fs-400">
+              {/* <h2 className="fs-700 ff-serif">
+                {allApplications[currentIndex]['Project Name']}
+              </h2> */}
+              <h3 className="fs-400">
                 {allApplications[currentIndex]['Contact Name']}
-              </h2>
+              </h3>
               <div className="c2a">
                 <div className="fs-400 ff-sans-c">
                   {allApplications[currentIndex]['Call to Adventure']}
