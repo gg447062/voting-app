@@ -36,11 +36,11 @@ const Vote = () => {
       });
 
       const cohort = 5;
-      // const verified = await verifySignature({
-      //   address: account.address,
-      //   messageHash,
-      //   signature,
-      // });
+      const verified = await verifySignature({
+        address: account.address,
+        messageHash,
+        signature,
+      });
       navigate('/results');
       if (verified) {
         await sendVotes(account.address, cohort, finalList);
@@ -52,7 +52,10 @@ const Vote = () => {
   };
 
   const handleChange = (e) => {
-    dispatch(updateVotes(parseInt(e.target.id), parseInt(e.target.value)));
+    const votes = isNaN(parseInt(e.target.value))
+      ? 0
+      : parseInt(e.target.value);
+    dispatch(updateVotes(parseInt(e.target.id), votes));
   };
 
   const debouncedHandleChange = useMemo(() => debounce(handleChange, 300), []);
@@ -72,22 +75,33 @@ const Vote = () => {
           {top10.map((el, i) => {
             return (
               <div className="flex vote--card" key={el.id}>
-                <label className="fs-600" htmlFor={el.name}>
+                <label
+                  // className={el.name.length > 11 ? 'fs-500' : 'fs-600'}
+                  className="fs-500"
+                  htmlFor={el.name}
+                >
                   {el.name}{' '}
                 </label>
-                <div className="vote--icon dark">{el.name[0]}</div>
+                <div
+                  className="vote--icon has-border"
+                  style={{
+                    backgroundImage: "url('assets/images/chip_1_1.png')",
+                  }}
+                >
+                  {el.name[0]}
+                </div>
                 <div className="flex has-border input--container">
                   <div className="input--left">$CLUB</div>
                   <input
-                    className="vote--input fs-500 fc-dark-low-op"
+                    className="vote--input fs-500"
                     id={el.id}
                     type="number"
                     min="0"
                     name={el.name}
-                    defaultValue={0}
+                    placeholder={0}
                     onChange={debouncedHandleChange}
                   ></input>
-                  <div className="input--right fs-500 fc-dark-low-op">
+                  <div className="input--right fs-500">
                     {getPercentage(top10[i].votes, total)}
                   </div>
                 </div>

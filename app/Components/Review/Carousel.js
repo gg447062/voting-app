@@ -28,6 +28,7 @@ const Carousel = () => {
                 style={{ backgroundImage: "url('assets/images/chip_1_1.png')" }}
               >
                 {/* use project logo here */}
+                {el['Project Name'][0]}
               </div>
             );
           })}

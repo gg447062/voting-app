@@ -351,10 +351,9 @@ button:hover {
   align-items: center;
   border-radius: 50%;
   font-size: 0.875rem;
-  padding: 0 2em;
+  padding: 0 1.6em;
   aspect-ratio: 1;
-  color: #fdfee1;
-  background-repeat: no-repeat;
+  color: #232c22;
   background-size: cover;
   border: 2px solid #c4ff65;
   box-shadow: 0 0 0 2px #232c22;
@@ -463,6 +462,7 @@ button:hover {
 }
 
 .vote--card {
+  flex-wrap: nowrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -477,27 +477,30 @@ button:hover {
   position: relative;
   border-radius: 50%;
   font-size: 1rem;
-  color: #fdfee1;
+  color: #232c22;
   aspect-ratio: 1;
   padding: 0 4em;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .input--container {
   border-radius: 1.5em;
-  max-width: 12em;
+  max-width: 15em;
+  gap: 0;
 }
 
 .input--left {
   padding-top: 0.1em;
   padding-inline: 0.5em;
-  width: 6em;
+  border-right: 1px solid #232c22;
 }
 
 .input--right {
   padding-top: 0.05em;
   border-left: 1px solid #232c22;
   padding-inline: 0.5em;
-  max-width: 3em;
+  max-width: 5em;
 }
 
 .vote--input {
