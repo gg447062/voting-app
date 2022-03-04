@@ -3,20 +3,21 @@
 /* ------------------- */
 /* font-families */
 @font-face {
-  font-family: "GT_America_Extended_Medium";
-  src: url("./assets/fonts/GT_America_Extended_Medium.ttf");
+  font-family: 'GT_America_Extended_Medium';
+  src: url('./assets/fonts/GT_America_Extended_Medium.ttf');
 }
 @font-face {
-  font-family: "GT-America-Extended-Thin";
-  src: url("./assets/fonts/GT-America-Extended-Thin.otf");
+  font-family: 'GT-America-Extended-Thin';
+  src: url('./assets/fonts/GT-America-Extended-Thin.otf');
 }
 @font-face {
-  font-family: "ITCGaramondStd-LtCond";
-  src: url("./assets/fonts/ITCGaramondStd-LtCond.otf");
+  font-family: 'ITCGaramondStd-LtCond';
+  src: url('./assets/fonts/ITCGaramondStd-LtCond.otf');
 }
 @font-face {
-  font-family: "ITCEDSCR";
-  src: url("./assets/fonts/ITCEDSCR.ttf");
+  font-family: 'ITCEDSCR';
+  src: url('./assets/fonts/ITCEDSCR.ttf');
+  src: url('./assets/fonts/ITCEDSCR.TTF');
 }
 /* ------------------- */
 /*        Reset        */
@@ -53,7 +54,7 @@ p {
 
 /* set up the body */
 body {
-  font-family: "GT_America_Extended_Medium", sans-serif;
+  font-family: 'GT_America_Extended_Medium', sans-serif;
   font-size: 0.9375rem;
   color: #232c22;
   background-color: #232c22;
@@ -99,8 +100,8 @@ button:hover {
 /* remove animations for people who've turned them off */
 @media (prefers-reduced-motion: reduce) {
   *,
-*::before,
-*::after {
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -221,19 +222,19 @@ button:hover {
 }
 
 .ff-sans {
-  font-family: "GT_America_Extended_Medium", sans-serif;
+  font-family: 'GT_America_Extended_Medium', sans-serif;
 }
 
 .ff-sans-c {
-  font-family: "GT-America-Extended-Thin", sans-serif;
+  font-family: 'GT-America-Extended-Thin', sans-serif;
 }
 
 .ff-serif {
-  font-family: "ITCGaramondStd-LtCond", serif;
+  font-family: 'ITCGaramondStd-LtCond', serif;
 }
 
 .ff-serif-2 {
-  font-family: "ITCEDSCR", serif;
+  font-family: 'ITCEDSCR', serif;
 }
 
 /* ------------------- */
@@ -587,7 +588,10 @@ button:hover {
 .votes--top10-grid {
   grid-column: 1/3;
   width: 100%;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(
+      0,
+      1fr
+    ) minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   padding: 0.6rem;
   border-radius: 1.5em;
