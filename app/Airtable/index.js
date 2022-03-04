@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.defaults.headers[
   'Authorization'
-] = `Bearer ${process.env.AIRTABLE_API_KEY}`;
+] = `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`;
 
 const applicationsBaseURL =
   'https://api.airtable.com/v0/appZy0IcocUjMrryI/SC04%20Applications';

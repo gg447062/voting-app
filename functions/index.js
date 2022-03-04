@@ -4,7 +4,7 @@ const Web3 = require('web3');
 const dotenv = require('dotenv').config();
 
 const web3 = new Web3(
-  `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`
+  `https://eth-mainnet.alchemyapi.io/v2/${process.env.REACT_APP_ALCHEMY_API_KEY}`
 );
 
 admin.initializeApp();
