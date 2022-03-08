@@ -41,3 +41,35 @@ export const getFinalList = (list, total, votingPower, asObject = true) => {
     return mappedList;
   }
 };
+
+const urls = [
+  { name: 'Boys Club', url: 'https://youtube.com/embed/NtbiE6qXV_c' },
+  { name: 'Breaking The Lines', url: 'https://youtube.com/embed/1k-qdSfSb_Q' },
+  { name: 'Caféteria DAO', url: 'https://www.youtube.com/embed/exvjqpvyiJw' },
+  { name: 'ClimateDAO', url: 'https://www.youtube.com/embed/OIq6DAqzFsM' },
+  {
+    name: 'COLORS Community DAO',
+    url: 'https://www.youtube.com/embed/Hl7JX4B6rqQ',
+  },
+];
+
+export const getUrl = (url, name) => {
+  for (let i = 0; i < 5; i++) {
+    const curr = urls[i];
+    if (curr.name === name) return curr.url;
+  }
+  const exp = /youtu\.*be/;
+  if (exp.test(url)) {
+    if (url.includes('watch')) {
+      const id = url.split('=')[1].split('&')[0];
+      return `https://www.youtube.com/embed/${id}`;
+    } else if (url.includes('tu.be')) {
+      const id = url.split('/')[3];
+      return `https://www.youtube.com/embed/${id}`;
+    } else {
+      return url;
+    }
+  } else {
+    return 'https://www.youtube.com/embed/nU21rCWkuJw';
+  }
+};

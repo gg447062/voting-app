@@ -9,7 +9,10 @@ const Results = () => {
       <p>
         Thank you for participating, please fill out{' '}
         <span>
-          <a href="" target={'_blank'}>
+          <a
+            href="https://qdmg9xsecjy.typeform.com/to/zORwxZIS"
+            target={'_blank'}
+          >
             this survey
           </a>
         </span>{' '}

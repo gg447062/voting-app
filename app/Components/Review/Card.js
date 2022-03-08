@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchRecords, setCurrent } from '../../Redux/applications';
+import { getUrl } from '../../utils';
 
 const Card = () => {
   const allApplications = useSelector((state) => state.applications.all);
@@ -53,7 +54,10 @@ const Card = () => {
           <div className="card--bottom flex">
             {/* left */}
             <iframe
-              src="https://www.youtube.com/embed/nU21rCWkuJw"
+              src={getUrl(
+                allApplications[currentIndex]['Video'],
+                allApplications[currentIndex]['Project Name']
+              )}
               frameBorder="0"
               className="video"
               style={{ borderRadius: '1.5em' }}
