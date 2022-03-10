@@ -39,7 +39,14 @@ const votesReducer = (state = initState, action) => {
       return { ...state, top10: _top10 };
     case REMOVE:
       _top10 = state.top10.map((el, i) => {
-        return i === parseInt(action.idx) ? null : el;
+        return i === parseInt(action.idx)
+          ? {
+              id: -1,
+              src: null,
+              name: 'empty',
+              votes: 0,
+            }
+          : el;
       });
       return { ...state, top10: _top10 };
     case UPDATE_VOTES:
