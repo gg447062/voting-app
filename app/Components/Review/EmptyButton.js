@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToTop10 } from '../../Redux/votes';
 
+import { getImageURL } from '../../utils';
+
 const EmptyButton = ({ id }) => {
   const current = useSelector((state) => state.applications.current);
   const all = useSelector((state) => state.applications.all);
@@ -24,7 +26,7 @@ const EmptyButton = ({ id }) => {
       dispatch(
         addToTop10(e.target.id, {
           id: current,
-          src: all[current]['Project Name'][0],
+          src: `url(${getImageURL(all[current]['Project Name'])})`,
           name: all[current]['Project Name'],
           votes: 0,
         })

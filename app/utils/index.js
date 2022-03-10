@@ -21,7 +21,7 @@ export const getPercentage = (a, b, c = 0, stripped = false) => {
 export const getFinalList = (list, total, votingPower, asObject = true) => {
   if (asObject) {
     const mappedList = list
-      .filter((el) => el.votes !== 0)
+      .filter((el) => el && el.votes !== 0)
       .map((el) => {
         const _el = {
           name: el.name,
@@ -72,4 +72,34 @@ export const getUrl = (url, name) => {
   } else {
     return 'https://www.youtube.com/embed/nU21rCWkuJw';
   }
+};
+
+const imageUrls = {
+  'Boys Club': { url: 'boysclub.jpeg' },
+  'Breaking The Lines': { url: 'breakingthelines.jpeg' },
+  'Caféteria DAO': { url: 'cafeteria.jpeg' },
+  ClimateDAO: { url: 'climate.png' },
+  'COLORS Community DAO': { url: 'colors.jpeg' },
+  FLOPPY: { url: 'floppy.jpeg' },
+  'gmgn Supply DAO': { url: 'gmgn.jpeg' },
+  'Grow Your Own Cloud': { url: 'gyoc.jpeg' },
+  Impssbl: { url: 'impssbl.jpeg' },
+  Kali: { url: 'kali.jpeg' },
+  'Metalabel ': { url: 'chip_1_1.png' },
+  Mirage: { url: 'mirage.jpeg' },
+  Mochi: { url: 'mochi.png' },
+  'MUSE DAO': { url: 'muse.jpeg' },
+  'Music OS': { url: 'chip_1_1.png' },
+  Pentagraph: { url: 'pentagraph.jpeg' },
+  'SongADAO!': { url: 'songadao.jpeg' },
+  'The Destiny Magi': { url: 'destinymagi.jpeg' },
+  'The Sports DAO': { url: 'sportsicon.png' },
+  'Thirsty Thirsty': { url: 'thirstythirsy.jpeg' },
+  Twali: { url: 'twali.png' },
+};
+
+export const getImageURL = (name) => {
+  const url = imageUrls[name].url;
+  const domainName = 'https://d3c3p3kzkks69a.cloudfront.net';
+  return `${domainName}/${url}`;
 };

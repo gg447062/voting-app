@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrent } from '../../Redux/applications';
+import { getImageURL } from '../../utils';
 
 const Carousel = () => {
   const all = useSelector((state) => state.applications.all);
@@ -8,7 +9,6 @@ const Carousel = () => {
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
-    console.log(e.target.id);
     dispatch(setCurrent(parseInt(e.target.id)));
   };
 
@@ -25,10 +25,12 @@ const Carousel = () => {
                 id={i}
                 key={i}
                 onClick={handleClick}
-                style={{ backgroundImage: "url('assets/images/chip_1_1.png')" }}
+                style={{
+                  backgroundImage: `url(${getImageURL(el['Project Name'])})`,
+                }}
               >
                 {/* use project logo here */}
-                {el['Project Name'][0]}
+                {/* {el['Project Name'][0]} */}
               </div>
             );
           })}

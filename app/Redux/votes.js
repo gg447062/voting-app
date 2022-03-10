@@ -21,7 +21,12 @@ export const updateVotes = (id, votes) => ({
 
 const initState = {
   total: 0,
-  top10: new Array(10).fill(null),
+  top10: new Array(10).fill({
+    id: -1,
+    src: null,
+    name: 'empty',
+    votes: 0,
+  }),
 };
 
 const votesReducer = (state = initState, action) => {

@@ -6,20 +6,20 @@ import { useNavigate } from 'react-router-dom';
 
 const Top10 = () => {
   const top10 = useSelector((state) => state.votes.top10);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate('/vote');
   };
 
-  useEffect(() => {
-    if (!top10.includes(null) && disabled) {
-      setDisabled(false);
-    } else if (top10.includes(null) && !disabled) {
-      setDisabled(true);
-    }
-  });
+  // useEffect(() => {
+  //   if (!top10.includes(null) && disabled) {
+  //     setDisabled(false);
+  //   } else if (top10.includes(null) && !disabled) {
+  //     setDisabled(true);
+  //   }
+  // });
 
   return (
     <div className="container has-border top10--container green">
@@ -27,7 +27,7 @@ const Top10 = () => {
       <div className="grid top10--grid">
         {top10.map((el, i) => {
           {
-            return el ? (
+            return el.name !== 'empty' ? (
               <SelectedButton id={i} key={i} src={el.src} />
             ) : (
               <EmptyButton id={i} key={i} />

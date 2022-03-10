@@ -1,6 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeFromTop10 } from '../../Redux/votes';
+import { getImageURL } from '../../utils';
 
 const SelectedButton = ({ src, id }) => {
   const dispatch = useDispatch();
@@ -13,9 +14,8 @@ const SelectedButton = ({ src, id }) => {
     <React.Fragment>
       <div
         className="circle has-border in-top10"
-        style={{ backgroundImage: "url('assets/images/chip_1_1.png')" }}
+        style={{ backgroundImage: src }}
       >
-        {src}
         <button
           id={id}
           className="remove-button has-border"

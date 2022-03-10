@@ -8,14 +8,11 @@ import { updateVotes } from '../Redux/votes';
 import { sendVotes, verifySignature } from '../Firebase';
 import { getFinalList, getPercentage } from '../utils';
 import Modal from './Modal';
+import SelectedVote from './SelectedVote';
+import EmptyButton from './Review/EmptyButton';
+import EmptyVote from './EmptyVote';
 
 const Vote = () => {
-  // const top10 = new Array(10).fill({
-  //   id: 0,
-  //   src: 'F',
-  //   name: 'Floppy',
-  //   votes: 0,
-  // });
   const top10 = useSelector((state) => state.votes.top10);
   const total = useSelector((state) => state.votes.total);
   const account = useSelector((state) => state.account);
@@ -73,39 +70,10 @@ const Vote = () => {
         </Header>
         <form className="grid votes--top10-grid green">
           {top10.map((el, i) => {
-            return (
-              <div className="flex vote--card" key={el.id}>
-                <label
-                  // className={el.name.length > 11 ? 'fs-500' : 'fs-600'}
-                  className="fs-500"
-                  htmlFor={el.name}
-                >
-                  {el.name}{' '}
-                </label>
-                <div
-                  className="vote--icon has-border"
-                  style={{
-                    backgroundImage: "url('assets/images/chip_1_1.png')",
-                  }}
-                >
-                  {el.name[0]}
-                </div>
-                <div className="flex has-border input--container">
-                  <div className="input--left">$CLUB</div>
-                  <input
-                    className="vote--input fs-500"
-                    id={el.id}
-                    type="number"
-                    min="0"
-                    name={el.name}
-                    placeholder={0}
-                    onChange={debouncedHandleChange}
-                  ></input>
-                  <div className="input--right fs-500">
-                    {getPercentage(top10[i].votes, total)}
-                  </div>
-                </div>
-              </div>
+            return el ? (
+              <SelectedVote el={el} func={debouncedHandleChange} i={i} />
+            ) : (
+              <EmptyVote i={i} />
             );
           })}
         </form>
