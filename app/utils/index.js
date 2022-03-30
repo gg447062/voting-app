@@ -18,28 +18,18 @@ export const getPercentage = (a, b, c = 0, stripped = false) => {
   }
 };
 
-export const getFinalList = (list, total, votingPower, asObject = true) => {
-  if (asObject) {
-    const mappedList = list
-      .filter((el) => el && el.votes !== 0)
-      .map((el) => {
-        const _el = {
-          name: el.name,
-          votes: getPercentage(el.votes, total, votingPower, true),
-        };
-        return _el;
-      });
+export const getFinalList = (list, total, votingPower) => {
+  const mappedList = list
+    .filter((el) => el && el.votes !== 0)
+    .map((el) => {
+      const _el = {
+        name: el.name,
+        votes: getPercentage(el.votes, total, votingPower, true),
+      };
+      return _el;
+    });
 
-    return mappedList;
-  } else {
-    const mappedList = list
-      .filter((el) => el.votes !== 0)
-      .map((curr) => {
-        return `${curr.name}: ${getPercentage(curr.votes, total)}`;
-      })
-      .join(', ');
-    return mappedList;
-  }
+  return mappedList;
 };
 
 const urls = [

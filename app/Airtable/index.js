@@ -7,9 +7,6 @@ axios.defaults.headers[
 const applicationsBaseURL =
   'https://api.airtable.com/v0/appZy0IcocUjMrryI/SC04%20Applications';
 
-const votesBaseURL =
-  'https://api.airtable.com/v0/appZy0IcocUjMrryI/Votes%20Test';
-
 export const getRecords = async () => {
   const { data: res } = await axios.get(applicationsBaseURL, {
     params: {
@@ -20,23 +17,9 @@ export const getRecords = async () => {
   });
 
   const fields = res.records.map((record) => {
-    return record.fields;
+    const obj = { ...record.fields, inTop10: false };
+    return obj;
   });
 
   return fields;
-};
-
-export const getVoter = async (id) => {
-  const { data: res } = await axios.get(votesBaseURL, {
-    params: {
-      view: 'Main',
-      fields: ['Voter ID', 'Voted'],
-    },
-  });
-
-  const voter = res.records.filter(
-    (record) => record.fields['Voter ID'].toLowerCase() == id.toLowerCase()
-  )[0];
-
-  return voter;
 };

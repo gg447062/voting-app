@@ -1,14 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import Vote from './Vote';
-// import GridTest from './GridTest';
 import Home from './Home';
 import Results from './Results';
 import Review from './Review';
 
 const App = () => {
-  const complete = useSelector((state) => state.applications.complete);
   return (
     <main>
       <Router>

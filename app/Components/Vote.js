@@ -6,10 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 import { updateVotes } from '../Redux/votes';
 import { sendVotes, verifySignature } from '../Firebase';
-import { getFinalList, getPercentage } from '../utils';
+import { getFinalList } from '../utils';
 import Modal from './Modal';
 import SelectedVote from './SelectedVote';
-import EmptyButton from './Review/EmptyButton';
 import EmptyVote from './EmptyVote';
 
 const Vote = () => {
@@ -22,7 +21,7 @@ const Vote = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const finalList = getFinalList(top10, total, account.votingPower, true);
+    const finalList = getFinalList(top10, total, account.votingPower);
     try {
       const message = 'voting on seed club accelerator applications';
       const messageHash = `0x${Buffer.from(message, 'utf8').toString('hex')}`;
@@ -38,9 +37,11 @@ const Vote = () => {
         messageHash,
         signature,
       });
-      navigate('/results');
       if (verified) {
         await sendVotes(account.address, cohort, finalList);
+        navigate('/results');
+      } else {
+        // display some error here
         navigate('/results');
       }
     } catch (err) {
