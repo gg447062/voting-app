@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setAccount } from '../Redux/account';
 import { getVoter } from '../Firebase';
 import { useNavigate } from 'react-router-dom';
-import Web3 from 'web3';
+import { ethers } from 'ethers';
 import { abi, contractAddress } from '../utils/token';
 
 const ConnectButton = () => {
@@ -12,34 +12,35 @@ const ConnectButton = () => {
   const address = useSelector((state) => state.account.address);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { ethereum } = window;
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-  const getBalance = async (_address) => {
-    const web3 = new Web3(Web3.givenProvider);
-    const chainId = await web3.eth.getChainId();
+  const getVotingPower = async (_address) => {
+    const network = await provider.getNetwork();
+    const chainId = network.chainId;
     if (chainId === 1) {
-      const contract = new web3.eth.Contract(abi, contractAddress);
-      const balance = await contract.methods.balanceOf(_address).call();
-      return web3.utils.fromWei(balance, 'ether');
+      const contract = new ethers.Contract(contractAddress, abi, provider);
+      const balance = await contract.balanceOf(_address);
+      return Math.floor(ethers.utils.formatEther(balance));
     } else {
       alert('please switch to mainnet');
     }
   };
 
   const getAccounts = async () => {
-    const accounts = await ethereum.request({ method: 'eth_accounts' });
-    const address = accounts[0];
+    const accounts = await provider.send('eth_requestAccounts', []);
+    const _address = accounts[0];
     // get $CLUB token balance
-    const votingPower = await getBalance(address);
-
-    const voter = await getVoter(address);
-    if (!voter) {
+    const votingPower = await getVotingPower(_address);
+    const name = await provider.lookupAddress(_address);
+    const voter = await getVoter(_address);
+    if (!voter || !votingPower) {
       // production: if voter is not in database they can't vote
-      dispatch(setAccount(null, address, votingPower));
+      //alert('must be whitelisted to vote)
+      // navigate(/)
+      dispatch(setAccount(null, name, _address, votingPower));
     } else {
-      // dispatch(setAccount(voter.id, address, votingPower));
-
-      dispatch(setAccount(null, address, votingPower));
+      // dispatch(setAccount(voter.id, _address, votingPower));
+      dispatch(setAccount(null, name, _address, votingPower));
     }
     // production: must be true ---> voter.fields['Voted'] === 'no'
     // else {
@@ -51,7 +52,6 @@ const ConnectButton = () => {
     if (ethereum) {
       try {
         setDisabled(!disabled);
-        await ethereum.request({ method: 'eth_requestAccounts' });
         await getAccounts();
         navigate('/review');
       } catch (error) {

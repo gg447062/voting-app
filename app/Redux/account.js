@@ -1,13 +1,14 @@
 const SET_ACCOUNT = 'SET_ACCOUNT';
 
-export const setAccount = (id, address, votingPower) => ({
+export const setAccount = (id, name, address, votingPower) => ({
   type: SET_ACCOUNT,
   id,
+  name,
   address,
   votingPower,
 });
 
-const initState = { id: null, address: null, votingPower: 0 };
+const initState = { id: null, name: null, address: null, votingPower: 0 };
 
 const accountReducer = (state = initState, action) => {
   switch (action.type) {
@@ -15,6 +16,7 @@ const accountReducer = (state = initState, action) => {
       return {
         ...state,
         id: action.id,
+        name: action.name,
         address: action.address,
         votingPower: action.votingPower,
       };

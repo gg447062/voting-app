@@ -9,6 +9,7 @@ import Modal from '../Modal';
 
 const Review = () => {
   const address = useSelector((state) => state.account.address);
+  const name = useSelector((state) => state.account.name);
   return (
     <React.Fragment>
       <div
@@ -17,7 +18,7 @@ const Review = () => {
         style={{ filter: 'blur(5px)' }}
       >
         <Header align="sb">
-          <div className="address">{address}</div>
+          <div className="address ff-serif">{name ? name : address}</div>
           <ConnectButton />
         </Header>
         <Top10 />

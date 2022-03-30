@@ -19,7 +19,7 @@
     "airtable": "^0.11.1",
     "axios": "^0.25.0",
     "babel-loader": "^8.2.3",
-    "bulma": "^0.9.3",
+    "ethers": "^5.6.2",
     "express": "^4.17.2",
     "firebase": "^9.6.6",
     "lodash": "^4.17.21",
@@ -31,7 +31,6 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
     "sass": "^1.49.0",
-    "web3": "^1.7.0",
     "webpack": "^5.66.0"
   },
   "devDependencies": {
