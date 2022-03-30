@@ -289,8 +289,11 @@ button:hover {
 
 .address {
   max-width: 15em;
+  font-size: 1.4em;
   overflow-x: hidden;
   text-overflow: ellipsis;
+  padding-top: 0.1em;
+  padding-left: 0.3em;
 }
 
 /* home */
