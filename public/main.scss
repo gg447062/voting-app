@@ -88,7 +88,7 @@ body {
   font-family: $ff-sans-normal;
   font-size: $fs-400;
   color: $dark;
-  background-color: $dark;
+  // background-color: $dark;
   line-height: 1.5;
   min-height: 100vh;
   position: relative;
@@ -122,8 +122,9 @@ input::-webkit-inner-spin-button {
 }
 
 button {
-  background-color: $dark;
+  background-color: $light;
   border-style: none;
+  border-radius: 5em;
 }
 
 button:hover {
@@ -166,6 +167,19 @@ button:hover {
   align-items: center;
 }
 
+.sa {
+  justify-content: space-around;
+  align-items: center;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
 .block {
   display: block;
 }
@@ -183,6 +197,30 @@ button:hover {
 
 .has-border {
   border: 1px solid $dark;
+}
+
+.overflow-scroll {
+  overflow-y: scroll;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.bottom-align {
+  bottom: 0px;
+}
+
+.top-align {
+  top: 0px;
+}
+
+.full-width {
+  width: 100vw;
+}
+
+.bg-cover {
+  background-size: cover;
 }
 
 /* colors */
@@ -283,8 +321,8 @@ button:hover {
   padding-inline: 2em;
   vertical-align: middle;
   font-size: 1.4em;
-  background-color: $dark;
-  color: $darkgreen;
+  // background-color: $dark;
+  // color: $darkgreen;
 }
 
 .address {
@@ -334,11 +372,11 @@ button:hover {
 }
 
 .top10--container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding-inline: 0.8em;
+  width: 100%;
+}
+
+.top10--overlay {
+  padding-inline: 1rem;
 }
 
 .top10--title {
@@ -350,10 +388,10 @@ button:hover {
   margin-top: 1em;
   padding-inline: 1em;
   padding-top: 0.2em;
-  background-color: $dark;
+  // background-color: $dark;
   font-size: 1.5em;
-  color: $light;
-  border-radius: 5em;
+  // color: $light;
+  // border-radius: 5em;
 }
 
 .next-button:disabled {
@@ -367,30 +405,33 @@ button:hover {
   padding: 0 0.3em;
   aspect-ratio: 1;
   border-radius: 50%;
-  background-color: $light;
-  color: $dark;
   z-index: 10;
 }
 
-/* carousel */
+/* overview */
 
-.carousel--container {
-  grid-column: 1 / 3;
-  width: 100%;
+.overview {
+  height: 100vh;
 }
 
-.carousel {
-  overflow-x: scroll;
-  max-width: 100%;
+.overview--grid {
+  width: 100vw;
+  height: 100vh;
 }
 
-.carousel--circle {
+.grid--card {
+  width: 8rem;
+  padding-inline: 2rem;
+  text-align: center;
+}
+
+.grid--circle {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  font-size: $fs-300;
+  font-size: 1.5rem;
   padding: 0 1.6em;
   aspect-ratio: 1;
   color: $dark;
@@ -410,8 +451,10 @@ button:hover {
 
 .card--container {
   width: 100%;
+  // max-height: 80vh;
   justify-content: center;
   align-items: center;
+  background-color: $light;
 }
 
 .card--info {
@@ -446,9 +489,13 @@ button:hover {
   color: $light;
 }
 
-.card--bottom {
+.card--middle {
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
+}
+
+.card--bottom {
   width: 100%;
 }
 
@@ -562,17 +609,17 @@ button:hover {
   padding-inline: 2em;
   padding-top: 0.2em;
   font-size: 2em;
-  background-color: $dark;
-  color: $darkgreen;
+  // background-color: $dark;
+  // color: $darkgreen;
 }
 
 /* modal */
 .modal--wrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 10vh;
+  left: 10vw;
+  width: 80vw;
+  height: 80vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -583,20 +630,11 @@ button:hover {
   display: none;
 }
 
-.modal {
-  background-color: $light;
-  max-width: 50em;
-  max-height: 25em;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1.5em;
-  padding: 3em;
-}
-
 .modal--button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
   border-radius: 5em;
-  color: $lightgreen;
   padding-inline: 1em;
   padding-top: 0.2em;
   margin-top: 0.5em;

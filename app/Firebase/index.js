@@ -11,6 +11,8 @@ import {
   where,
   getDocs,
   addDoc,
+  setDoc,
+  doc,
   connectFirestoreEmulator,
 } from 'firebase/firestore';
 
@@ -39,6 +41,7 @@ if (window.location.hostname === 'localhost') {
 // db references
 const votersRef = collection(db, 'voters');
 const votesRef = collection(db, 'votes');
+const projectsRef = collection(db, 'projects');
 
 // cloud functions
 export const verifySignature = httpsCallable(functions, 'verifySignature');
@@ -57,9 +60,10 @@ export const getVoter = async (address) => {
 };
 
 // add votes to db
-export const sendVotes = async (address, cohort, votes) => {
+export const sendVotes = async (address, cohort, votes /*id*/) => {
   try {
     await addDoc(votesRef, { address, cohort, votes });
+    // await setDoc(doc(votersRef, id), {voted: true})
   } catch (error) {
     console.log(error);
     return error.message;

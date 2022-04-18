@@ -70,7 +70,7 @@ const ConnectButton = () => {
       onClick={connect}
       disabled={disabled}
     >
-      {!address ? 'Connect to enter the Accelerator Portal' : 'disconnect'}
+      {!address ? 'Connect wallet to enter the Voting Portal' : 'disconnect'}
     </button>
   );
 };

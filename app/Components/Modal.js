@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 
-const Modal = ({ children, el }) => {
-  const [display, setDisplay] = useState('');
-
+const Modal = ({ children, display, setDisplay }) => {
   const handleClick = () => {
     setDisplay('hidden');
-    document.getElementById(`${el}`).style.filter = 'blur(0px)';
   };
 
   return (
     <div className={`flex modal--wrapper ${display}`}>
-      <div className="flex modal">
+      <div className="flex">
         {children}
         <button className="modal--button ff-serif fs-600" onClick={handleClick}>
-          Continue
+          X
         </button>
       </div>
     </div>

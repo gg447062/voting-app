@@ -24,9 +24,8 @@ const Top10 = () => {
   });
 
   return (
-    <div className="container has-border top10--container green">
-      <div className="top10--title fs-500">FAVORITES</div>
-      <div className="grid top10--grid">
+    <div className="fixed bottom-align flex column full-width blue top10--overlay">
+      <div className="flex sb top10--container">
         {top10.map((el, i) => {
           {
             return el.name !== 'empty' ? (
@@ -37,13 +36,16 @@ const Top10 = () => {
           }
         })}
       </div>
-      <button
-        className="has-border next-button ff-serif"
-        disabled={disabled}
-        onClick={handleClick}
-      >
-        Ready to Vote
-      </button>
+      <div className="flex sb">
+        <div className="top10--title fs-500">FAVORITES</div>
+        <button
+          className="has-border next-button ff-serif"
+          disabled={disabled}
+          onClick={handleClick}
+        >
+          NEXT
+        </button>
+      </div>
     </div>
   );
 };
