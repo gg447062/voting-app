@@ -25,6 +25,7 @@ export const getFinalList = (list, total, votingPower) => {
       const _el = {
         name: el.name,
         votes: getPercentage(el.votes, total, votingPower, true),
+        comments: el.comments,
       };
       return _el;
     });

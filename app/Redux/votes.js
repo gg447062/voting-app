@@ -1,15 +1,16 @@
-const ADD = 'ADD';
-const REMOVE = 'REMOVE';
+const ADD_TO_TOP10 = 'ADD_TO_TOP10';
+const REMOVE_FROM_TOP10 = 'REMOVE_FROM_TOP10';
 const UPDATE_VOTES = 'UPDATE_VOTES';
+const ADD_COMMENT = 'ADD_COMMENT';
 
 export const addToTop10 = (idx, obj) => ({
-  type: ADD,
+  type: ADD_TO_TOP10,
   idx,
   obj,
 });
 
 export const removeFromTop10 = (idx) => ({
-  type: REMOVE,
+  type: REMOVE_FROM_TOP10,
   idx,
 });
 
@@ -19,35 +20,30 @@ export const updateVotes = (id, votes) => ({
   votes,
 });
 
+export const addComment = (id, comments) => ({
+  type: ADD_COMMENT,
+  id,
+  comments,
+});
+
 const initState = {
   total: 0,
-  top10: new Array(10).fill({
-    id: -1,
-    src: null,
-    name: 'empty',
-    votes: 0,
-  }),
+  votingPower: 100,
+  top10: [],
 };
 
 const votesReducer = (state = initState, action) => {
   let _top10;
+
   switch (action.type) {
-    case ADD:
-      _top10 = state.top10.map((el, i) => {
-        return i === parseInt(action.idx) ? action.obj : el;
-      });
-      return { ...state, top10: _top10 };
-    case REMOVE:
-      _top10 = state.top10.map((el, i) => {
-        return i === parseInt(action.idx)
-          ? {
-              id: -1,
-              src: null,
-              name: 'empty',
-              votes: 0,
-            }
-          : el;
-      });
+    case ADD_TO_TOP10:
+      return { ...state, top10: [...state.top10, action.obj] };
+    case REMOVE_FROM_TOP10:
+      _top10 = state.top10
+        .map((el, i) => {
+          return i === parseInt(action.idx) ? 0 : el;
+        })
+        .filter((el) => el !== 0);
       return { ...state, top10: _top10 };
     case UPDATE_VOTES:
       _top10 = state.top10.map((el) => {
@@ -62,6 +58,15 @@ const votesReducer = (state = initState, action) => {
         total: _total,
         top10: _top10,
       };
+    case ADD_COMMENT:
+      _top10 = state.top10.map((el) => {
+        return el.id === action.id ? { ...el, comments: action.comments } : el;
+      });
+      return {
+        ...state,
+        top10: _top10,
+      };
+
     default:
       return state;
   }
