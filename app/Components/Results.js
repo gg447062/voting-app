@@ -1,23 +1,49 @@
 import React from 'react';
+import Logo from './Logo';
 import { useSelector } from 'react-redux';
 
 const Results = () => {
-  const all = useSelector((state) => state.applications.all);
+  const sortedTop10 = useSelector((state) => state.votes.top10).sort(
+    (a, b) => b.votes - a.votes
+  );
 
   return (
-    <div className="container flex center green">
-      <p>
-        Thank you for participating, please fill out{' '}
-        <span>
-          <a
-            href="https://qdmg9xsecjy.typeform.com/to/zORwxZIS"
-            target={'_blank'}
-          >
-            this survey
-          </a>
-        </span>{' '}
-        about the experience.
-      </p>
+    <div className="max-height max-width blue-gradient flex column center">
+      <Logo />
+      <div className="flex sa full-width">
+        <div
+          className="light rounded-corners"
+          style={{ width: '40vw', height: '60vh' }}
+        >
+          Your Favorites
+          <table className="ff-sans-c">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>DAO</th>
+                <th>Seed Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedTop10.map((el, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{i + 1}</td>
+                    <td>{el.name}</td>
+                    <td>{el.votes}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div
+          className="light rounded-corners"
+          style={{ width: '40vw', height: '60vh' }}
+        >
+          Leaderboard
+        </div>
+      </div>
     </div>
   );
 };
