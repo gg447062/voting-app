@@ -30,7 +30,7 @@ const ProjectGrid = ({ setDisplay }) => {
                     backgroundImage: `url(${getImageURL(el['Project Name'])})`,
                   }}
                 ></div>
-                {el['Project Name']}
+                <p className="grid--name">{el['Project Name']}</p>
               </div>
             );
           })}

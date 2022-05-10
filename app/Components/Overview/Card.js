@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchRecords, setCurrent } from '../../Redux/applications';
+import { setCurrent } from '../../Redux/applications';
 import { addToTop10 } from '../../Redux/votes';
 import { getUrl, getImageURL } from '../../utils';
 
@@ -66,7 +66,7 @@ const Card = () => {
   }, [all, currentIndex]);
 
   return (
-    <div className="card--container flex container has-border">
+    <div className="card--container flex">
       {all.length > 0 && (
         <div className="flex card--info">
           {/* top */}
@@ -79,75 +79,86 @@ const Card = () => {
                 )})`,
               }}
             ></div>
-            <div className="flex column">
-              <h1 className="fs-600 ff-serif">
+            <div className="">
+              <div className="fs-600 ff-sans">
                 {all[currentIndex]['Project Name']}
-              </h1>
-              <h3 className="fs-400">{all[currentIndex]['Contact Name']}</h3>
+              </div>
+              <div className="fs-400 ff-sans-c ul">
+                {all[currentIndex]['Contact Name']}
+              </div>
             </div>
           </div>
           {/* middle */}
           <div className="flex sb full-width">
             {/* left */}
-            <iframe
-              src={getUrl(
-                all[currentIndex]['Video'],
-                all[currentIndex]['Project Name']
-              )}
-              frameBorder="0"
-              className="video"
-              // style={{ borderRadius: '1.5em' }}
-            />
+            <div className="flex column">
+              <iframe
+                src={getUrl(
+                  all[currentIndex]['Video'],
+                  all[currentIndex]['Project Name']
+                )}
+                frameBorder="0"
+                className="video"
+                // style={{ borderRadius: '1.5em' }}
+              />
+              <div className="flex column">
+                <h3>Relevant Links</h3>
+                <a
+                  href="https://discord.com/"
+                  target={'_blank'}
+                  className="ff-sans-c underline"
+                >
+                  {/* <img
+                    className="card--icon"
+                    src="assets/images/discord_icon.png"
+                    alt="discord logo"
+                  /> */}
+                  Discord
+                </a>
+                <a
+                  href="https://twitter.com/home"
+                  target={'_blank'}
+                  className="ff-sans-c underline"
+                >
+                  {/* <img
+                    className="card--icon"
+                    src="assets/images/twitter_icon.png"
+                    alt="twitter logo"
+                  /> */}
+                  Twitter
+                </a>
+              </div>
+            </div>
             {/* right */}
-            <div className="card--right flex column sb">
-              {/* <h2 className="fs-700 ff-serif">
-                {all[currentIndex]['Project Name']}
-              </h2> */}
+            <div className="card--right flex column sa">
               <div className="c2a">
                 <div className="fs-400 ff-sans-c">
                   {all[currentIndex]['Call to Adventure']}
                 </div>
               </div>
-              <button
-                className="fs-600 ff-sans-c"
-                onClick={handleClick}
-                disabled={top10.length === 10}
-              >
-                Add to Favorites
-              </button>
-            </div>
-          </div>
-          {/* bottom */}
-          <div className="flex sb full-width margin-top-bottom-1">
-            <div className="flex column">
-              <a href="https://discord.com/" target={'_blank'}>
+              <div className="full-width flex center">
+                <button
+                  className="fs-500 ff-sans-c"
+                  onClick={handleClick}
+                  disabled={top10.length === 10}
+                >
+                  Add to Favorites
+                </button>
+              </div>
+              <div className="full-width flex center">
                 <img
-                  className="card--icon"
-                  src="assets/images/discord_icon.png"
-                  alt="discord logo"
-                />
-              </a>
-              <a href="https://twitter.com/home" target={'_blank'}>
+                  className="arrow"
+                  src="assets/images/arrow_left.png"
+                  alt="left arrow"
+                  onClick={previous}
+                ></img>
                 <img
-                  className="card--icon"
-                  src="assets/images/twitter_icon.png"
-                  alt="twitter logo"
-                />
-              </a>
-            </div>
-            <div className="flex">
-              <img
-                className="arrow"
-                src="assets/images/arrow_left.png"
-                alt="left arrow"
-                onClick={previous}
-              ></img>
-              <img
-                className="arrow"
-                src="assets/images/arrow.png"
-                alt="right arrow"
-                onClick={next}
-              ></img>
+                  className="arrow"
+                  src="assets/images/arrow.png"
+                  alt="right arrow"
+                  onClick={next}
+                ></img>
+              </div>
             </div>
           </div>
         </div>
