@@ -25,24 +25,24 @@ const Vote = () => {
       const message = 'voting on seed club accelerator applications';
       const messageHash = `0x${Buffer.from(message, 'utf8').toString('hex')}`;
 
-      const signature = await ethereum.request({
-        method: 'personal_sign',
-        params: [messageHash, account.address],
-      });
+      // const signature = await ethereum.request({
+      //   method: 'personal_sign',
+      //   params: [messageHash, account.address],
+      // });
 
-      const cohort = 5;
-      const verified = await verifySignature({
-        address: account.address,
-        messageHash,
-        signature,
-      });
-      if (verified) {
-        await sendVotes(account.address, cohort, finalList);
-        navigate('/results');
-      } else {
-        // display some error here
-        navigate('/results');
-      }
+      // const cohort = 5;
+      // const verified = await verifySignature({
+      //   address: account.address,
+      //   messageHash,
+      //   signature,
+      // });
+      // if (verified) {
+      //   await sendVotes(account.address, cohort, finalList);
+      //   navigate('/results');
+      // } else {
+      //   // display some error here
+      navigate('/results');
+      // }
     } catch (err) {
       console.error(err);
     }
