@@ -4,6 +4,7 @@ import Vote from './Vote';
 import Home from './Home';
 import Results from './Results';
 import Overview from './Overview';
+import VoteIntro from './VoteIntro';
 
 const App = () => {
   return (
@@ -12,7 +13,8 @@ const App = () => {
         <Routes>
           {/* <Route path={'/'} element={<Home />} /> */}
           <Route path={'/'} element={<Overview />} />
-          {/* <Route path={'review'} element={<Overview />} /> */}
+          {/* <Route path={'overview'} element={<Overview />} /> */}
+          <Route path={'vi'} element={<VoteIntro />} />
           <Route path={'vote'} element={<Vote />} />
           <Route path={'results'} element={<Results />} />
         </Routes>
