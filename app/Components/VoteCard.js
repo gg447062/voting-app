@@ -87,6 +87,7 @@ const VoteCard = ({ el, i }) => {
         </div>
         <textarea
           className="full-width rounded-corners comments"
+          id="comments"
           placeholder="add a comment"
           onChange={(e) => {
             setComment(e.target.value);

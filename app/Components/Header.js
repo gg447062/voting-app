@@ -6,9 +6,9 @@ const Header = ({ align, title, val1, val2 }) => {
     <div className={`top-align flex ${align} max-width`}>
       <Logo />
       <div>dots</div>
-      <div>
+      <div className="light rounded-corners">
         <h2>{title}</h2>
-        <p>{`${val1}/${val2}`}</p>
+        <p className="fs-600 ff-sans-c">{`${val1}/${val2}`}</p>
       </div>
     </div>
   );

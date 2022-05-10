@@ -4,11 +4,11 @@ const Logo = () => {
   return (
     <div className="flex">
       <div className="flex column">
-        <p>SEED CLUB</p>
-        <p>ACCELERATOR</p>
+        <p>SEED / CLUB</p>
+        <p className="fs-600">ACCELERATOR</p>
         <div className="rainbow logo"></div>
       </div>
-      <p>5</p>
+      <p className="ff-serif-2 fs-900">5</p>
     </div>
   );
 };
