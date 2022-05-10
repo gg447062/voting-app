@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
-import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchRecords, setCurrent } from '../../Redux/applications';
 import { addToTop10 } from '../../Redux/votes';
@@ -10,15 +9,8 @@ const Card = () => {
   const all = useSelector((state) => state.applications.all);
   const currentIndex = useSelector((state) => state.applications.current);
   const top10 = useSelector((state) => state.votes.top10);
-  const top10Total = top10.reduce((prev, curr) => {
-    if (curr.name !== 'empty') {
-      prev++;
-    }
-    return prev;
-  }, 0);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const next = () => {
     const nextIndex = (currentIndex + 1) % all.length;
@@ -51,26 +43,34 @@ const Card = () => {
           src: `url(${getImageURL(all[currentIndex]['Project Name'])})`,
           name: all[currentIndex]['Project Name'],
           votes: 0,
+          comments: '',
         })
       );
     }
   };
 
-  // useEffect(() => {
-  //   dispatch(fetchRecords());
-  //   // if (address) {
-  //   //   dispatch(fetchRecords());
-  //   // } else {
-  //   //   navigate('/');
-  //   // }
-  // }, []);
+  const handleKeyDown = (e) => {
+    if (e.key == 'ArrowRight') {
+      next();
+    } else if (e.key == 'ArrowLeft') {
+      previous();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [all, currentIndex]);
 
   return (
-    <div className="card--container flex container ">
+    <div className="card--container flex container has-border">
       {all.length > 0 && (
         <div className="flex card--info">
           {/* top */}
-          <div className="card--title flex ">
+          <div className="card--title flex">
             <div
               className={`circle flex center bg-cover has-border`}
               style={{
@@ -79,14 +79,15 @@ const Card = () => {
                 )})`,
               }}
             ></div>
-            <h1 className="fs-800 ff-serif">
-              {all[currentIndex]['Project Name']}
-            </h1>
-            <h3 className="fs-400">{all[currentIndex]['Contact Name']}</h3>
-            {/* <h1 className="fs-800">SEED CLUB ACCELERATOR 5</h1> */}
+            <div className="flex column">
+              <h1 className="fs-600 ff-serif">
+                {all[currentIndex]['Project Name']}
+              </h1>
+              <h3 className="fs-400">{all[currentIndex]['Contact Name']}</h3>
+            </div>
           </div>
           {/* middle */}
-          <div className="card--middle flex">
+          <div className="flex sb full-width">
             {/* left */}
             <iframe
               src={getUrl(
@@ -95,10 +96,10 @@ const Card = () => {
               )}
               frameBorder="0"
               className="video"
-              style={{ borderRadius: '1.5em' }}
+              // style={{ borderRadius: '1.5em' }}
             />
             {/* right */}
-            <div className="card--right flex">
+            <div className="card--right flex column sb">
               {/* <h2 className="fs-700 ff-serif">
                 {all[currentIndex]['Project Name']}
               </h2> */}
@@ -108,16 +109,16 @@ const Card = () => {
                 </div>
               </div>
               <button
-                className="has-border"
+                className="fs-600 ff-sans-c"
                 onClick={handleClick}
-                disabled={top10Total === 10}
+                disabled={top10.length === 10}
               >
-                ADD TO FAVORITES
+                Add to Favorites
               </button>
             </div>
           </div>
           {/* bottom */}
-          <div className="card--bottom flex sb">
+          <div className="flex sb full-width margin-top-bottom-1">
             <div className="flex column">
               <a href="https://discord.com/" target={'_blank'}>
                 <img

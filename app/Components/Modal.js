@@ -9,9 +9,9 @@ const Modal = ({ children, display, setDisplay }) => {
     <div className={`flex modal--wrapper ${display}`}>
       <div className="flex">
         {children}
-        <button className="modal--button ff-serif fs-600" onClick={handleClick}>
+        <div className="modal--button ff-serif fs-600" onClick={handleClick}>
           X
-        </button>
+        </div>
       </div>
     </div>
   );
